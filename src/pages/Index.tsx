@@ -96,16 +96,39 @@ const Index = () => {
           </p>
 
           {/* Search bar */}
-          <div className="mt-8 sm:mt-10 max-w-xl mx-auto relative group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Enter Assessor's Parcel Number (APN), Address, or Owner Name..."
-              className="w-full bg-card border-2 border-border focus:border-primary rounded-none pl-12 pr-6 py-4 sm:py-5 text-foreground shadow-sm outline-none transition-all text-sm font-medium"
-            />
-          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (filteredProperties.length === 1) {
+                navigate(`/property/${filteredProperties[0].id}`);
+              } else if (filteredProperties.length > 0) {
+                document
+                  .getElementById("properties")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className="mt-8 sm:mt-10 max-w-2xl mx-auto flex flex-col sm:flex-row gap-3"
+          >
+            <div className="relative group flex-1">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Enter Assessor's Parcel Number (APN), Address, or Owner Name..."
+                className="w-full h-full bg-card border-2 border-border focus:border-primary rounded-none pl-12 pr-6 py-4 sm:py-5 text-foreground shadow-sm outline-none transition-all text-sm font-medium"
+              />
+            </div>
+            <button
+              type="submit"
+              className="flex justify-center items-center gap-2 bg-primary text-primary-foreground px-6 py-4 sm:py-5 shadow-sm hover:bg-primary/90 transition-colors whitespace-nowrap border-2 border-primary"
+            >
+              <Filter className="w-5 h-5" />
+              <span className="text-sm font-bold uppercase tracking-wider">
+                Filter Database
+              </span>
+            </button>
+          </form>
         </div>
       </section>
 
@@ -213,21 +236,6 @@ const Index = () => {
             <h2 className="text-xl sm:text-3xl font-display font-bold uppercase tracking-wide text-foreground">
               Property Registry Database
             </h2>
-            <p className="text-muted-foreground font-medium text-xs sm:text-sm mt-1">
-              {filteredProperties.length} records matched based on search
-              parameters.
-            </p>
-          </div>
-          <div className="flex flex-col items-end">
-            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">
-              Refine Search
-            </span>
-            <button className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-1.5 shadow-sm hover:bg-primary/90 transition-colors">
-              <Filter className="w-4 h-4" />
-              <span className="text-xs font-bold uppercase tracking-wider">
-                Filter Database
-              </span>
-            </button>
           </div>
         </div>
 
