@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Shield, MapPin, Home, Landmark } from "lucide-react";
+import { Search, Shield, MapPin, Home, Landmark, Filter } from "lucide-react";
 import { initialProperties, Property } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import FakeMap from "@/components/FakeMap";
@@ -220,14 +220,14 @@ const Index = () => {
           </div>
           <div className="flex flex-col items-end">
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">
-              Total Records in County
+              Refine Search
             </span>
-            <div className="flex items-center gap-2 bg-primary text-primary-foreground px-3 py-1.5 shadow-sm">
-              <Home className="w-4 h-4" />
-              <span className="text-xs font-bold">
-                {properties.length} Active Parcels
+            <button className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-1.5 shadow-sm hover:bg-primary/90 transition-colors">
+              <Filter className="w-4 h-4" />
+              <span className="text-xs font-bold uppercase tracking-wider">
+                Filter Database
               </span>
-            </div>
+            </button>
           </div>
         </div>
 
