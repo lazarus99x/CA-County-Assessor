@@ -44,21 +44,25 @@ export const initialProperties: Property[] = [
     city: "El Monte",
     state: "CA",
     zip: "91732",
-    value: 1500000,
+    value: 850000,
     bedrooms: 4,
     bathrooms: 3,
     sqft: 2800,
     lotSize: 5000,
     yearBuilt: 1980,
-    apn: '8472-019-03' + Math.floor(Math.random() * 9),
-    zoning: 'R-1 Single Family',
-    lastSaleDate: '2021-' + String(Math.floor(Math.random() * 11) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 27) + 1).padStart(2, '0'),
+    apn: "8472-019-03" + Math.floor(Math.random() * 9),
+    zoning: "R-1 Single Family",
+    lastSaleDate:
+      "2021-" +
+      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
+      "-" +
+      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house1,
     owner: {
       name: "Dr Benson Jackson",
       maritalStatus: "Widower",
-      phone: "(626) 555-0142",
-      email: "b.jackson@email.com",
+      phone: "Number 1 : 205-887-2773, Number 2: 447-305-7313",
+      email: "bensonjackson9877@gmail.com",
       occupancy: "Primary Resident",
     },
     mapPosition: { top: "35%", left: "42%" },
@@ -75,9 +79,13 @@ export const initialProperties: Property[] = [
     sqft: 2100,
     lotSize: 5000,
     yearBuilt: 1980,
-    apn: '8472-019-03' + Math.floor(Math.random() * 9),
-    zoning: 'R-1 Single Family',
-    lastSaleDate: '2021-' + String(Math.floor(Math.random() * 11) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 27) + 1).padStart(2, '0'),
+    apn: "8472-019-03" + Math.floor(Math.random() * 9),
+    zoning: "R-1 Single Family",
+    lastSaleDate:
+      "2021-" +
+      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
+      "-" +
+      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house2,
     owner: {
       name: "Maria Gonzalez",
@@ -100,9 +108,13 @@ export const initialProperties: Property[] = [
     sqft: 1200,
     lotSize: 5000,
     yearBuilt: 1980,
-    apn: '8472-019-03' + Math.floor(Math.random() * 9),
-    zoning: 'R-1 Single Family',
-    lastSaleDate: '2021-' + String(Math.floor(Math.random() * 11) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 27) + 1).padStart(2, '0'),
+    apn: "8472-019-03" + Math.floor(Math.random() * 9),
+    zoning: "R-1 Single Family",
+    lastSaleDate:
+      "2021-" +
+      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
+      "-" +
+      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house3,
     owner: {
       name: "James Liu",
@@ -125,9 +137,13 @@ export const initialProperties: Property[] = [
     sqft: 3200,
     lotSize: 5000,
     yearBuilt: 1980,
-    apn: '8472-019-03' + Math.floor(Math.random() * 9),
-    zoning: 'R-1 Single Family',
-    lastSaleDate: '2021-' + String(Math.floor(Math.random() * 11) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 27) + 1).padStart(2, '0'),
+    apn: "8472-019-03" + Math.floor(Math.random() * 9),
+    zoning: "R-1 Single Family",
+    lastSaleDate:
+      "2021-" +
+      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
+      "-" +
+      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house4,
     owner: {
       name: "Robert Chen",
@@ -150,9 +166,13 @@ export const initialProperties: Property[] = [
     sqft: 1800,
     lotSize: 5000,
     yearBuilt: 1980,
-    apn: '8472-019-03' + Math.floor(Math.random() * 9),
-    zoning: 'R-1 Single Family',
-    lastSaleDate: '2021-' + String(Math.floor(Math.random() * 11) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 27) + 1).padStart(2, '0'),
+    apn: "8472-019-03" + Math.floor(Math.random() * 9),
+    zoning: "R-1 Single Family",
+    lastSaleDate:
+      "2021-" +
+      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
+      "-" +
+      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house5,
     owner: {
       name: "Susan Park",
@@ -175,9 +195,13 @@ export const initialProperties: Property[] = [
     sqft: 1950,
     lotSize: 5000,
     yearBuilt: 1980,
-    apn: '8472-019-03' + Math.floor(Math.random() * 9),
-    zoning: 'R-1 Single Family',
-    lastSaleDate: '2021-' + String(Math.floor(Math.random() * 11) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 27) + 1).padStart(2, '0'),
+    apn: "8472-019-03" + Math.floor(Math.random() * 9),
+    zoning: "R-1 Single Family",
+    lastSaleDate:
+      "2021-" +
+      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
+      "-" +
+      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house6,
     owner: {
       name: "Angela Torres",
@@ -200,9 +224,13 @@ export const initialProperties: Property[] = [
     sqft: 3600,
     lotSize: 5000,
     yearBuilt: 1980,
-    apn: '8472-019-03' + Math.floor(Math.random() * 9),
-    zoning: 'R-1 Single Family',
-    lastSaleDate: '2021-' + String(Math.floor(Math.random() * 11) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 27) + 1).padStart(2, '0'),
+    apn: "8472-019-03" + Math.floor(Math.random() * 9),
+    zoning: "R-1 Single Family",
+    lastSaleDate:
+      "2021-" +
+      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
+      "-" +
+      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house7,
     owner: {
       name: "David & Karen Mitchell",
@@ -225,9 +253,13 @@ export const initialProperties: Property[] = [
     sqft: 1650,
     lotSize: 5000,
     yearBuilt: 1980,
-    apn: '8472-019-03' + Math.floor(Math.random() * 9),
-    zoning: 'R-1 Single Family',
-    lastSaleDate: '2021-' + String(Math.floor(Math.random() * 11) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 27) + 1).padStart(2, '0'),
+    apn: "8472-019-03" + Math.floor(Math.random() * 9),
+    zoning: "R-1 Single Family",
+    lastSaleDate:
+      "2021-" +
+      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
+      "-" +
+      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house8,
     owner: {
       name: "Thomas Nguyen",
@@ -250,9 +282,13 @@ export const initialProperties: Property[] = [
     sqft: 4200,
     lotSize: 5000,
     yearBuilt: 1980,
-    apn: '8472-019-03' + Math.floor(Math.random() * 9),
-    zoning: 'R-1 Single Family',
-    lastSaleDate: '2021-' + String(Math.floor(Math.random() * 11) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 27) + 1).padStart(2, '0'),
+    apn: "8472-019-03" + Math.floor(Math.random() * 9),
+    zoning: "R-1 Single Family",
+    lastSaleDate:
+      "2021-" +
+      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
+      "-" +
+      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house9,
     owner: {
       name: "Dr. Priya Sharma",
@@ -275,9 +311,13 @@ export const initialProperties: Property[] = [
     sqft: 2400,
     lotSize: 5000,
     yearBuilt: 1980,
-    apn: '8472-019-03' + Math.floor(Math.random() * 9),
-    zoning: 'R-1 Single Family',
-    lastSaleDate: '2021-' + String(Math.floor(Math.random() * 11) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 27) + 1).padStart(2, '0'),
+    apn: "8472-019-03" + Math.floor(Math.random() * 9),
+    zoning: "R-1 Single Family",
+    lastSaleDate:
+      "2021-" +
+      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
+      "-" +
+      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house10,
     owner: {
       name: "William & Sarah Foster",
