@@ -134,7 +134,7 @@ export const initialProperties: Property[] = [
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house3,
     gallery: [
-      "/houseimages2/Frontview.png",
+      "/houseimages2/frontview.png",
       "/houseimages2/view1.png",
       "/houseimages2/view2.png",
       "/houseimages2/view3.png",
