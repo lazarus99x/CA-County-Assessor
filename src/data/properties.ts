@@ -207,14 +207,6 @@ export const initialProperties: Property[] = [
       "-" +
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house5,
-    gallery: [
-      "/bensionhuose/frontview.png",
-      "/bensionhuose/view1.png",
-      "/bensionhuose/view2.png",
-      "/bensionhuose/view3.png",
-      "/bensionhuose/view4.png",
-      "/bensionhuose/view5.png",
-    ],
     owner: {
       name: "Susan Park",
       maritalStatus: "Divorced",
@@ -244,14 +236,6 @@ export const initialProperties: Property[] = [
       "-" +
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house6,
-    gallery: [
-      "/houseimages1/frontview.png",
-      "/houseimages1/view1.png",
-      "/houseimages1/view2.png",
-      "/houseimages1/view3.png",
-      "/houseimages1/view4.png",
-      "/houseimages1/view5.png",
-    ],
     owner: {
       name: "Angela Torres",
       maritalStatus: "Married",
@@ -281,14 +265,6 @@ export const initialProperties: Property[] = [
       "-" +
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house7,
-    gallery: [
-      "/houseimages2/Frontview.png",
-      "/houseimages2/view1.png",
-      "/houseimages2/view2.png",
-      "/houseimages2/view3.png",
-      "/houseimages2/view4.png",
-      "/houseimages2/view5.png",
-    ],
     owner: {
       name: "David & Karen Mitchell",
       maritalStatus: "Married",
@@ -318,14 +294,6 @@ export const initialProperties: Property[] = [
       "-" +
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house8,
-    gallery: [
-      "/houseimages3/frontview.png",
-      "/houseimages3/view1.png",
-      "/houseimages3/view2.png",
-      "/houseimages3/view3.png",
-      "/houseimages3/view4.png",
-      "/houseimages3/view5.png",
-    ],
     owner: {
       name: "Thomas Nguyen",
       maritalStatus: "Single",
@@ -355,14 +323,6 @@ export const initialProperties: Property[] = [
       "-" +
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house9,
-    gallery: [
-      "/bensionhuose/frontview.png",
-      "/bensionhuose/view1.png",
-      "/bensionhuose/view2.png",
-      "/bensionhuose/view3.png",
-      "/bensionhuose/view4.png",
-      "/bensionhuose/view5.png",
-    ],
     owner: {
       name: "Dr. Priya Sharma",
       maritalStatus: "Married",
@@ -392,14 +352,6 @@ export const initialProperties: Property[] = [
       "-" +
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house10,
-    gallery: [
-      "/houseimages1/frontview.png",
-      "/houseimages1/view1.png",
-      "/houseimages1/view2.png",
-      "/houseimages1/view3.png",
-      "/houseimages1/view4.png",
-      "/houseimages1/view5.png",
-    ],
     owner: {
       name: "William & Sarah Foster",
       maritalStatus: "Married",
