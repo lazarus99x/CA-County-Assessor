@@ -25,6 +25,7 @@ export interface Property {
   zoning: string;
   lastSaleDate: string;
   image: string;
+  gallery?: string[];
   owner: Owner;
   mapPosition: { top: string; left: string };
 }
@@ -58,6 +59,14 @@ export const initialProperties: Property[] = [
       "-" +
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house1,
+    gallery: [
+      "/bensionhuose/frontview.png",
+      "/bensionhuose/view1.png",
+      "/bensionhuose/view2.png",
+      "/bensionhuose/view3.png",
+      "/bensionhuose/view4.png",
+      "/bensionhuose/view5.png",
+    ],
     owner: {
       name: "Dr Benson Jackson",
       maritalStatus: "Widower",
