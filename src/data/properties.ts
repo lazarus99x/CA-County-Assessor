@@ -96,6 +96,14 @@ export const initialProperties: Property[] = [
       "-" +
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house2,
+    gallery: [
+      "/houseimages1/frontview.png",
+      "/houseimages1/view1.png",
+      "/houseimages1/view2.png",
+      "/houseimages1/view3.png",
+      "/houseimages1/view4.png",
+      "/houseimages1/view5.png",
+    ],
     owner: {
       name: "Maria Gonzalez",
       maritalStatus: "Married",
@@ -125,6 +133,14 @@ export const initialProperties: Property[] = [
       "-" +
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house3,
+    gallery: [
+      "/houseimages2/Frontview.png",
+      "/houseimages2/view1.png",
+      "/houseimages2/view2.png",
+      "/houseimages2/view3.png",
+      "/houseimages2/view4.png",
+      "/houseimages2/view5.png",
+    ],
     owner: {
       name: "James Liu",
       maritalStatus: "Single",
@@ -154,6 +170,14 @@ export const initialProperties: Property[] = [
       "-" +
       String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
     image: house4,
+    gallery: [
+      "/houseimages3/frontview.png",
+      "/houseimages3/view1.png",
+      "/houseimages3/view2.png",
+      "/houseimages3/view3.png",
+      "/houseimages3/view4.png",
+      "/houseimages3/view5.png",
+    ],
     owner: {
       name: "Robert Chen",
       maritalStatus: "Married",
