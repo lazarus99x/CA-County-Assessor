@@ -41,10 +41,10 @@ export interface Owner {
 export const initialProperties: Property[] = [
   {
     id: "1",
-    address: "12048 Hallwood Dr",
-    city: "El Monte",
-    state: "CA",
-    zip: "91732",
+    address: "Mercer Res 240 Mercer St",
+    city: "New York",
+    state: "NY",
+    zip: "10012",
     value: 850000,
     bedrooms: 4,
     bathrooms: 3,
@@ -68,10 +68,10 @@ export const initialProperties: Property[] = [
       "/bensionhuose/view5.png",
     ],
     owner: {
-      name: "Dr Benson Jackson",
+      name: "Bruce Jackson",
       maritalStatus: "Widower",
-      phone: "Number 1 : 205-887-2773, Number 2: 447-305-7313",
-      email: "bensonjackson9877@gmail.com",
+      phone: "+1518-2244-174",
+      email: "bracejackson876@gmail.com",
       occupancy: "Primary Resident",
     },
     mapPosition: { top: "35%", left: "42%" },

@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { initialProperties } from "@/data/properties";
 import {
   MapPin,
