@@ -90,7 +90,7 @@ const Index = () => {
             Search verified county property data, assessment valuations, and
             recorded ownership details for{" "}
             <span className="font-bold text-foreground">
-              Hallwood Drive Region, El Monte, CA
+              the United States
             </span>
             .
           </p>
@@ -142,14 +142,14 @@ const Index = () => {
           <div className="relative w-full h-[280px] sm:h-[400px] lg:h-[500px] bg-card border-2 border-primary shadow-sm overflow-hidden flex flex-col">
             <div className="bg-primary px-3 py-2 border-b flex items-center justify-between">
               <span className="text-primary-foreground text-[10px] sm:text-xs font-bold uppercase tracking-widest">
-                Regional Overview (El Monte, CA)
+                Regional Overview (United States)
               </span>
               <span className="text-primary-foreground/70 text-[10px] uppercase font-mono tracking-tighter">
-                Geo: 34.0686° N, 118.0275° W
+                Geo: 37.0902° N, 95.7129° W
               </span>
             </div>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.7196307123497!2d-118.0275!3d34.0686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2d0f0d2b1f833%3A0xc3c5f403ac3a8e93!2sEl%20Monte%2C%20CA!5e0!3m2!1sen!2sus!4v1709590820000!5m2!1sen!2sus"
+              src="https://maps.google.com/maps?q=United%20States&t=&z=4&ie=UTF8&iwloc=&output=embed"
               className="w-full flex-1 border-0 grayscale-[30%] contrast-125"
               allowFullScreen={false}
               loading="lazy"

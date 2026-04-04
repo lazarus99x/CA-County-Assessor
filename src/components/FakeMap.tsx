@@ -21,7 +21,7 @@ const FakeMap = ({
       {/* Map UI overlays */}
       <div className="absolute top-3 left-3 bg-card/90 backdrop-blur-sm rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 shadow-md flex items-center gap-2">
         <span className="text-[10px] sm:text-xs font-semibold text-card-foreground">
-          Hallwood Dr, El Monte, CA
+          Current Location: United States
         </span>
       </div>
 
