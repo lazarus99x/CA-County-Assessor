@@ -1,12 +1,6 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Search,
-  Shield,
-  Landmark,
-  Filter,
-  FileCheck2,
-} from "lucide-react";
+import { Search, Shield, Landmark, Filter, FileCheck2 } from "lucide-react";
 import { initialProperties, Property } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 
@@ -92,13 +86,6 @@ const Index = () => {
             pages, mapping context, and image records for residential listings
             in Michigan.
           </p>
-          <div className="mt-6 inline-flex max-w-2xl items-center gap-2 border border-amber-300 bg-amber-50 px-4 py-2 text-left text-xs text-amber-900">
-            <FileCheck2 className="h-4 w-4 flex-shrink-0" />
-            <span>
-              This interface is styled for clarity and public reference, but it
-              is not an official state or county government website.
-            </span>
-          </div>
 
           <form
             onSubmit={(event) => {
@@ -279,8 +266,8 @@ const Index = () => {
           </p>
           <p className="mt-2 max-w-2xl text-[10px] font-medium text-muted-foreground/70 sm:text-xs">
             Directory formatting is provided for informational browsing only.
-            Users should verify legal title, tax standing, and ownership
-            history through the appropriate county and municipal offices.
+            Users should verify legal title, tax standing, and ownership history
+            through the appropriate county and municipal offices.
           </p>
         </div>
       </footer>
