@@ -112,6 +112,14 @@ const PropertyView = () => {
             <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
               Residential property file
             </h2>
+            <p className="mt-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+              {property.bedrooms} bd • {property.bathrooms} ba •{" "}
+              {property.sqft.toLocaleString()} sq ft
+            </p>
+            <p className="mt-1 text-sm text-foreground sm:text-base">
+              {property.address}, {property.city}, {property.state}{" "}
+              {property.zip}
+            </p>
           </div>
           <div className="text-left sm:text-right">
             <p className="mb-1 text-xs font-bold uppercase tracking-wider text-muted-foreground">
