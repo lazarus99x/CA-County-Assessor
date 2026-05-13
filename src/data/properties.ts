@@ -1,13 +1,7 @@
-import house1 from "@/assets/house-1.jpg";
-import house2 from "@/assets/house-2.jpg";
-import house3 from "@/assets/house-3.jpg";
-import house4 from "@/assets/house-4.jpg";
-import house5 from "@/assets/house-5.jpg";
-import house6 from "@/assets/house-6.jpg";
-import house7 from "@/assets/house-7.jpg";
-import house8 from "@/assets/house-8.jpg";
-import house9 from "@/assets/house-9.jpg";
-import house10 from "@/assets/house-10.jpg";
+const propertyGallery = Array.from(
+  { length: 35 },
+  (_, index) => `/houseimagetr/${index + 1}.jpeg`
+);
 
 export interface Property {
   id: string;
@@ -15,6 +9,7 @@ export interface Property {
   city: string;
   state: string;
   zip: string;
+  county: string;
   value: number;
   bedrooms: number;
   bathrooms: number;
@@ -25,9 +20,13 @@ export interface Property {
   zoning: string;
   lastSaleDate: string;
   image: string;
-  gallery?: string[];
+  gallery: string[];
   owner: Owner;
-  mapPosition: { top: string; left: string };
+  status: string;
+  description: string;
+  highlights: string[];
+  mapEmbedUrl: string;
+  recordDisclaimer: string;
 }
 
 export interface Owner {
@@ -40,325 +39,43 @@ export interface Owner {
 
 export const initialProperties: Property[] = [
   {
-    id: "1",
-    address: "Mercer Res 240 Mercer St",
-    city: "New York",
-    state: "NY",
-    zip: "10012",
-    value: 850000,
-    bedrooms: 4,
-    bathrooms: 3,
-    sqft: 2800,
-    lotSize: 5000,
-    yearBuilt: 1980,
-    apn: "8472-019-03" + Math.floor(Math.random() * 9),
-    zoning: "R-1 Single Family",
-    lastSaleDate:
-      "2021-" +
-      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
-      "-" +
-      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
-    image: house1,
-    gallery: [
-      "/bensionhuose/frontview.png",
-      "/bensionhuose/view1.png",
-      "/bensionhuose/view2.png",
-      "/bensionhuose/view3.png",
-      "/bensionhuose/view4.png",
-      "/bensionhuose/view5.png",
-    ],
-    owner: {
-      name: "Bruce Jackson",
-      maritalStatus: "Widower",
-      phone: "+1518-2244-174",
-      email: "bracejackson876@gmail.com",
-      occupancy: "Primary Resident",
-    },
-    mapPosition: { top: "35%", left: "42%" },
-  },
-  {
-    id: "2",
-    address: "12064 Hallwood Dr",
-    city: "El Monte",
-    state: "CA",
-    zip: "91732",
-    value: 1000000,
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: 2100,
-    lotSize: 5000,
-    yearBuilt: 1980,
-    apn: "8472-019-03" + Math.floor(Math.random() * 9),
-    zoning: "R-1 Single Family",
-    lastSaleDate:
-      "2021-" +
-      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
-      "-" +
-      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
-    image: house2,
-    gallery: [
-      "/houseimages1/frontview.png",
-      "/houseimages1/view1.png",
-      "/houseimages1/view2.png",
-      "/houseimages1/view3.png",
-      "/houseimages1/view4.png",
-      "/houseimages1/view5.png",
-    ],
-    owner: {
-      name: "Maria Gonzalez",
-      maritalStatus: "Married",
-      phone: "(626) 555-0198",
-      email: "m.gonzalez@email.com",
-      occupancy: "Primary Resident",
-    },
-    mapPosition: { top: "30%", left: "55%" },
-  },
-  {
-    id: "3",
-    address: "12080 Hallwood Dr",
-    city: "El Monte",
-    state: "CA",
-    zip: "91732",
-    value: 500000,
-    bedrooms: 2,
-    bathrooms: 1,
-    sqft: 1200,
-    lotSize: 5000,
-    yearBuilt: 1980,
-    apn: "8472-019-03" + Math.floor(Math.random() * 9),
-    zoning: "R-1 Single Family",
-    lastSaleDate:
-      "2021-" +
-      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
-      "-" +
-      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
-    image: house3,
-    gallery: [
-      "/houseimages2/frontview.png",
-      "/houseimages2/view1.png",
-      "/houseimages2/view2.png",
-      "/houseimages2/view3.png",
-      "/houseimages2/view4.png",
-      "/houseimages2/view5.png",
-    ],
-    owner: {
-      name: "James Liu",
-      maritalStatus: "Single",
-      phone: "(626) 555-0231",
-      email: "j.liu@email.com",
-      occupancy: "Primary Resident",
-    },
-    mapPosition: { top: "45%", left: "30%" },
-  },
-  {
-    id: "4",
-    address: "12096 Hallwood Dr",
-    city: "El Monte",
-    state: "CA",
-    zip: "91732",
-    value: 1500000,
+    id: "MSPD-48111-001",
+    address: "42183 Kouza Ct",
+    city: "Van Buren Township",
+    state: "MI",
+    zip: "48111",
+    county: "Wayne County",
+    value: 1649000,
     bedrooms: 5,
-    bathrooms: 4,
-    sqft: 3200,
-    lotSize: 5000,
-    yearBuilt: 1980,
-    apn: "8472-019-03" + Math.floor(Math.random() * 9),
-    zoning: "R-1 Single Family",
-    lastSaleDate:
-      "2021-" +
-      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
-      "-" +
-      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
-    image: house4,
-    gallery: [
-      "/houseimages3/frontview.png",
-      "/houseimages3/view1.png",
-      "/houseimages3/view2.png",
-      "/houseimages3/view3.png",
-      "/houseimages3/view4.png",
-      "/houseimages3/view5.png",
+    bathrooms: 8.5,
+    sqft: 9877,
+    lotSize: 30492,
+    yearBuilt: 2007,
+    apn: "83-064-99-0012-701",
+    zoning: "R-1 Residential Estate",
+    lastSaleDate: "2025-11-18",
+    image: propertyGallery[0],
+    gallery: propertyGallery,
+    owner: {
+      name: "Ownership details withheld from public preview",
+      maritalStatus: "Not shown",
+      phone: "Not displayed",
+      email: "Not displayed",
+      occupancy: "Residential use",
+    },
+    status: "Active directory record",
+    description:
+      "Positioned along all-sports Belleville Lake on a quiet cul-de-sac, this substantial waterfront residence presents a well-appointed residential footprint with expansive interior volume, large-scale entertaining areas, and broad lake-facing exposures. The property is suited to buyers or researchers reviewing premium shoreline housing stock in Van Buren Township, with a layout that supports private living quarters, guest accommodation, and recreational use.",
+    highlights: [
+      "Waterfront setting on Belleville Lake with cul-de-sac placement",
+      "Approximate gross living area of 9,877 square feet",
+      "Five-bedroom layout with eight full and one half bathrooms",
+      "Large-format rooms suited for gathering, hosting, and multigenerational use",
+      "Wayne County location with access to regional commuter corridors and recreation",
     ],
-    owner: {
-      name: "Robert Chen",
-      maritalStatus: "Married",
-      phone: "(626) 555-0177",
-      email: "r.chen@email.com",
-      occupancy: "Primary Resident",
-    },
-    mapPosition: { top: "55%", left: "60%" },
-  },
-  {
-    id: "5",
-    address: "12112 Hallwood Dr",
-    city: "El Monte",
-    state: "CA",
-    zip: "91732",
-    value: 750000,
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: 1800,
-    lotSize: 5000,
-    yearBuilt: 1980,
-    apn: "8472-019-03" + Math.floor(Math.random() * 9),
-    zoning: "R-1 Single Family",
-    lastSaleDate:
-      "2021-" +
-      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
-      "-" +
-      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
-    image: house5,
-    owner: {
-      name: "Susan Park",
-      maritalStatus: "Divorced",
-      phone: "(626) 555-0264",
-      email: "s.park@email.com",
-      occupancy: "Primary Resident",
-    },
-    mapPosition: { top: "40%", left: "72%" },
-  },
-  {
-    id: "6",
-    address: "12128 Hallwood Dr",
-    city: "El Monte",
-    state: "CA",
-    zip: "91732",
-    value: 920000,
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: 1950,
-    lotSize: 5000,
-    yearBuilt: 1980,
-    apn: "8472-019-03" + Math.floor(Math.random() * 9),
-    zoning: "R-1 Single Family",
-    lastSaleDate:
-      "2021-" +
-      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
-      "-" +
-      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
-    image: house6,
-    owner: {
-      name: "Angela Torres",
-      maritalStatus: "Married",
-      phone: "(626) 555-0311",
-      email: "a.torres@email.com",
-      occupancy: "Primary Resident",
-    },
-    mapPosition: { top: "25%", left: "38%" },
-  },
-  {
-    id: "7",
-    address: "12144 Hallwood Dr",
-    city: "El Monte",
-    state: "CA",
-    zip: "91732",
-    value: 1850000,
-    bedrooms: 5,
-    bathrooms: 4,
-    sqft: 3600,
-    lotSize: 5000,
-    yearBuilt: 1980,
-    apn: "8472-019-03" + Math.floor(Math.random() * 9),
-    zoning: "R-1 Single Family",
-    lastSaleDate:
-      "2021-" +
-      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
-      "-" +
-      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
-    image: house7,
-    owner: {
-      name: "David & Karen Mitchell",
-      maritalStatus: "Married",
-      phone: "(626) 555-0387",
-      email: "d.mitchell@email.com",
-      occupancy: "Primary Resident",
-    },
-    mapPosition: { top: "50%", left: "48%" },
-  },
-  {
-    id: "8",
-    address: "12160 Hallwood Dr",
-    city: "El Monte",
-    state: "CA",
-    zip: "91732",
-    value: 680000,
-    bedrooms: 3,
-    bathrooms: 2,
-    sqft: 1650,
-    lotSize: 5000,
-    yearBuilt: 1980,
-    apn: "8472-019-03" + Math.floor(Math.random() * 9),
-    zoning: "R-1 Single Family",
-    lastSaleDate:
-      "2021-" +
-      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
-      "-" +
-      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
-    image: house8,
-    owner: {
-      name: "Thomas Nguyen",
-      maritalStatus: "Single",
-      phone: "(626) 555-0425",
-      email: "t.nguyen@email.com",
-      occupancy: "Primary Resident",
-    },
-    mapPosition: { top: "60%", left: "35%" },
-  },
-  {
-    id: "9",
-    address: "12176 Hallwood Dr",
-    city: "El Monte",
-    state: "CA",
-    zip: "91732",
-    value: 2200000,
-    bedrooms: 6,
-    bathrooms: 5,
-    sqft: 4200,
-    lotSize: 5000,
-    yearBuilt: 1980,
-    apn: "8472-019-03" + Math.floor(Math.random() * 9),
-    zoning: "R-1 Single Family",
-    lastSaleDate:
-      "2021-" +
-      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
-      "-" +
-      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
-    image: house9,
-    owner: {
-      name: "Dr. Priya Sharma",
-      maritalStatus: "Married",
-      phone: "(626) 555-0468",
-      email: "p.sharma@email.com",
-      occupancy: "Primary Resident",
-    },
-    mapPosition: { top: "32%", left: "65%" },
-  },
-  {
-    id: "10",
-    address: "12192 Hallwood Dr",
-    city: "El Monte",
-    state: "CA",
-    zip: "91732",
-    value: 1150000,
-    bedrooms: 4,
-    bathrooms: 3,
-    sqft: 2400,
-    lotSize: 5000,
-    yearBuilt: 1980,
-    apn: "8472-019-03" + Math.floor(Math.random() * 9),
-    zoning: "R-1 Single Family",
-    lastSaleDate:
-      "2021-" +
-      String(Math.floor(Math.random() * 11) + 1).padStart(2, "0") +
-      "-" +
-      String(Math.floor(Math.random() * 27) + 1).padStart(2, "0"),
-    image: house10,
-    owner: {
-      name: "William & Sarah Foster",
-      maritalStatus: "Married",
-      phone: "(626) 555-0512",
-      email: "w.foster@email.com",
-      occupancy: "Primary Resident",
-    },
-    mapPosition: { top: "48%", left: "78%" },
+    mapEmbedUrl:
+      "https://maps.google.com/maps?q=42183%20Kouza%20Ct%2C%20Van%20Buren%20Township%2C%20MI%2048111&t=&z=16&ie=UTF8&iwloc=&output=embed",
+    recordDisclaimer:
+      "This independent directory page is for informational reference only and should not be treated as an official state, county, or township record.",
   },
 ];

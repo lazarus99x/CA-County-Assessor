@@ -1,62 +1,63 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Shield, MapPin, Home, Landmark, Filter } from "lucide-react";
+import {
+  Search,
+  Shield,
+  Landmark,
+  Filter,
+  FileCheck2,
+} from "lucide-react";
 import { initialProperties, Property } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
-import FakeMap from "@/components/FakeMap";
 
 const Index = () => {
   const navigate = useNavigate();
-  const [properties, setProperties] = useState<Property[]>(initialProperties);
+  const [properties] = useState<Property[]>(initialProperties);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(
-    null
+    initialProperties[0] ?? null
   );
 
   const filteredProperties = useMemo(() => {
     if (!searchQuery.trim()) return properties;
     const q = searchQuery.toLowerCase();
     return properties.filter(
-      (p) =>
-        p.address.toLowerCase().includes(q) ||
-        p.owner.name.toLowerCase().includes(q) ||
-        p.city.toLowerCase().includes(q) ||
-        p.zip.includes(q)
+      (property) =>
+        property.address.toLowerCase().includes(q) ||
+        property.city.toLowerCase().includes(q) ||
+        property.county.toLowerCase().includes(q) ||
+        property.zip.includes(q) ||
+        property.apn.toLowerCase().includes(q)
     );
-  }, [searchQuery, properties]);
+  }, [properties, searchQuery]);
 
   const handlePropertyClick = (property: Property) => {
     navigate(`/property/${property.id}`);
   };
 
-  const handlePinClick = (property: Property) => {
-    setSelectedProperty(property);
-  };
-
   return (
     <div className="min-h-screen bg-background">
-      {/* Official Government Navbar */}
-      <nav className="sticky top-0 z-40 bg-primary border-b-4 border-[#C8102E]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <nav className="sticky top-0 z-40 border-b border-primary/20 bg-primary shadow-sm">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:h-16 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <Landmark className="w-8 h-8 sm:w-10 sm:h-10 text-primary-foreground" />
+            <Landmark className="h-8 w-8 text-primary-foreground sm:h-10 sm:w-10" />
             <div className="flex flex-col">
-              <span className="font-display text-base sm:text-xl font-bold text-primary-foreground uppercase tracking-wider leading-tight">
-                CA County Assessor
+              <span className="font-display text-base font-bold uppercase tracking-wider leading-tight text-primary-foreground sm:text-xl">
+                Michigan State Property Directory
               </span>
-              <span className="text-[10px] sm:text-xs text-primary-foreground/80 font-medium uppercase tracking-widest">
-                Official Property Records Database
+              <span className="text-[10px] font-medium uppercase tracking-widest text-primary-foreground/80 sm:text-xs">
+                Independent Residential Reference Index
               </span>
             </div>
           </div>
-          <div className="hidden sm:flex items-center gap-6 text-sm font-bold text-primary-foreground uppercase tracking-widest">
+          <div className="hidden items-center gap-6 text-sm font-bold uppercase tracking-widest text-primary-foreground sm:flex">
             <button
               onClick={() =>
                 document
                   .getElementById("map")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="hover:underline transition-all"
+              className="transition-all hover:underline"
             >
               Map View
             </button>
@@ -66,7 +67,7 @@ const Index = () => {
                   .getElementById("properties")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="hover:underline transition-all"
+              className="transition-all hover:underline"
             >
               Property Search
             </button>
@@ -74,31 +75,34 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Hero - Official Banner */}
-      <section className="relative py-12 sm:py-20 px-4 bg-muted border-b border-border shadow-inner">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-sm px-3 sm:px-4 py-1.5 mb-4 sm:mb-6 border border-primary/20">
-            <Shield className="w-4 h-4" />
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-primary">
-              Public Record Verification Platform
+      <section className="relative overflow-hidden border-b border-border bg-muted px-4 py-12 sm:py-20">
+        <div className="absolute inset-0 opacity-60 [background-image:linear-gradient(90deg,transparent_0,transparent_24px,rgba(14,43,84,0.05)_24px,rgba(14,43,84,0.05)_25px),linear-gradient(transparent_0,transparent_24px,rgba(14,43,84,0.05)_24px,rgba(14,43,84,0.05)_25px)] [background-size:25px_25px]" />
+        <div className="relative mx-auto max-w-4xl text-center">
+          <div className="inline-flex items-center gap-2 border border-primary/15 bg-primary/10 px-3 py-1.5 text-primary">
+            <Shield className="h-4 w-4" />
+            <span className="text-xs font-bold uppercase tracking-widest sm:text-sm">
+              Public-facing directory experience
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground leading-tight uppercase tracking-tight">
-            Property Ownership & Tax Assessment Registry
+          <h1 className="mt-5 font-display text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+            Michigan residential property lookup
           </h1>
-          <p className="mt-4 sm:mt-6 text-base sm:text-lg text-muted-foreground font-medium max-w-xl mx-auto">
-            Search verified county property data, assessment valuations, and
-            recorded ownership details for{" "}
-            <span className="font-bold text-foreground">
-              the United States
-            </span>
-            .
+          <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-muted-foreground sm:mt-6 sm:text-lg">
+            Search a civic-styled property directory with parcel-style detail
+            pages, mapping context, and image records for residential listings
+            in Michigan.
           </p>
+          <div className="mt-6 inline-flex max-w-2xl items-center gap-2 border border-amber-300 bg-amber-50 px-4 py-2 text-left text-xs text-amber-900">
+            <FileCheck2 className="h-4 w-4 flex-shrink-0" />
+            <span>
+              This interface is styled for clarity and public reference, but it
+              is not an official state or county government website.
+            </span>
+          </div>
 
-          {/* Search bar */}
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
+            onSubmit={(event) => {
+              event.preventDefault();
               if (filteredProperties.length === 1) {
                 navigate(`/property/${filteredProperties[0].id}`);
               } else if (filteredProperties.length > 0) {
@@ -107,173 +111,176 @@ const Index = () => {
                   ?.scrollIntoView({ behavior: "smooth" });
               }
             }}
-            className="mt-8 sm:mt-10 max-w-2xl mx-auto flex flex-col sm:flex-row gap-3"
+            className="mx-auto mt-8 flex max-w-2xl flex-col gap-3 sm:mt-10 sm:flex-row"
           >
-            <div className="relative group flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+            <div className="group relative flex-1">
+              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary" />
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Enter Assessor's Parcel Number (APN), Address, or Owner Name..."
-                className="w-full h-full bg-card border-2 border-border focus:border-primary rounded-none pl-12 pr-6 py-4 sm:py-5 text-foreground shadow-sm outline-none transition-all text-sm font-medium"
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search by address, parcel number, city, or county..."
+                className="h-full w-full border-2 border-border bg-card py-4 pl-12 pr-6 text-sm font-medium text-foreground shadow-sm outline-none transition-all focus:border-primary"
               />
             </div>
             <button
               type="submit"
-              className="flex justify-center items-center gap-2 bg-primary text-primary-foreground px-6 py-4 sm:py-5 shadow-sm hover:bg-primary/90 transition-colors whitespace-nowrap border-2 border-primary"
+              className="flex items-center justify-center gap-2 border-2 border-primary bg-primary px-6 py-4 text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 sm:py-5"
             >
-              <Filter className="w-5 h-5" />
+              <Filter className="h-5 w-5" />
               <span className="text-sm font-bold uppercase tracking-wider">
-                Filter Database
+                Search Directory
               </span>
             </button>
           </form>
         </div>
       </section>
 
-      {/* Map Section */}
       <section
         id="map"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-10"
+        className="relative z-10 mx-auto -mt-6 max-w-7xl px-4 sm:-mt-8 sm:px-6 lg:px-8"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-          {/* Real Google Map */}
-          <div className="relative w-full h-[280px] sm:h-[400px] lg:h-[500px] bg-card border-2 border-primary shadow-sm overflow-hidden flex flex-col">
-            <div className="bg-primary px-3 py-2 border-b flex items-center justify-between">
-              <span className="text-primary-foreground text-[10px] sm:text-xs font-bold uppercase tracking-widest">
-                Regional Overview (United States)
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
+          <div className="relative flex h-[280px] w-full flex-col overflow-hidden border-2 border-primary bg-card shadow-sm sm:h-[400px] lg:h-[500px]">
+            <div className="flex items-center justify-between border-b bg-primary px-3 py-2">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-primary-foreground sm:text-xs">
+                Statewide map context
               </span>
-              <span className="text-primary-foreground/70 text-[10px] uppercase font-mono tracking-tighter">
-                Geo: 37.0902° N, 95.7129° W
+              <span className="text-[10px] font-mono uppercase tracking-tighter text-primary-foreground/70">
+                Michigan overview
               </span>
             </div>
             <iframe
-              src="https://maps.google.com/maps?q=United%20States&t=&z=4&ie=UTF8&iwloc=&output=embed"
-              className="w-full flex-1 border-0 grayscale-[30%] contrast-125"
+              src="https://maps.google.com/maps?q=Michigan&t=&z=6&ie=UTF8&iwloc=&output=embed"
+              className="w-full flex-1 border-0 grayscale-[25%] contrast-125"
               allowFullScreen={false}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+              title="Michigan map overview"
+            />
           </div>
 
-          {/* Fake Parcel Map */}
-          <div className="relative w-full h-[280px] sm:h-[400px] lg:h-[500px] bg-card border-2 border-primary shadow-sm flex flex-col">
-            <div className="bg-primary px-3 py-2 border-b flex items-center justify-between">
-              <span className="text-primary-foreground text-[10px] sm:text-xs font-bold uppercase tracking-widest">
-                Verified Parcel Layout
+          <div className="relative flex h-[280px] w-full flex-col overflow-hidden border-2 border-primary bg-card shadow-sm sm:h-[400px] lg:h-[500px]">
+            <div className="flex items-center justify-between border-b bg-primary px-3 py-2">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-primary-foreground sm:text-xs">
+                Featured parcel location
               </span>
-              <span className="text-primary-foreground/70 text-[10px] uppercase font-mono tracking-tighter">
-                Scale: 1:200
+              <span className="text-[10px] font-mono uppercase tracking-tighter text-primary-foreground/70">
+                Van Buren Township
               </span>
             </div>
-            <div className="flex-1 w-full relative overflow-hidden">
-              <FakeMap
-                properties={filteredProperties}
-                selectedProperty={selectedProperty}
-                onPinClick={handlePinClick}
-              />
-            </div>
+            <iframe
+              src={initialProperties[0].mapEmbedUrl}
+              className="w-full flex-1 border-0"
+              allowFullScreen={false}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Featured Michigan property location"
+            />
           </div>
         </div>
       </section>
 
-      {/* Selected property quick view */}
       {selectedProperty && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div className="mx-auto mt-4 max-w-7xl px-4 sm:px-6 lg:px-8">
           <div
             onClick={() => handlePropertyClick(selectedProperty)}
-            className="bg-card border-2 border-primary border-l-4 p-3 sm:p-4 flex gap-3 sm:gap-4 items-center cursor-pointer hover:bg-muted/50 transition-colors shadow-sm"
+            className="flex cursor-pointer items-center gap-3 border-l-4 border-primary bg-card p-3 shadow-sm transition-colors hover:bg-muted/50 sm:gap-4 sm:p-4"
           >
             <img
               src={selectedProperty.image}
-              alt=""
-              className="w-16 h-16 sm:w-20 sm:h-20 object-cover flex-shrink-0 grayscale contrast-125"
+              alt={selectedProperty.address}
+              className="h-16 w-16 flex-shrink-0 object-cover contrast-125 sm:h-20 sm:w-20"
             />
-            <div className="flex-1 min-w-0">
-              <h3 className="font-display font-bold text-card-foreground text-sm sm:text-base uppercase tracking-wide truncate">
-                {selectedProperty.address}
+            <div className="min-w-0 flex-1">
+              <h3 className="truncate font-display text-sm font-bold uppercase tracking-wide text-card-foreground sm:text-base">
+                {selectedProperty.address}, {selectedProperty.city}
               </h3>
-              <p className="text-xs sm:text-sm font-medium text-muted-foreground">
+              <p className="text-xs font-medium text-muted-foreground sm:text-sm">
                 {selectedProperty.city}, {selectedProperty.state}{" "}
                 {selectedProperty.zip}
               </p>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-[10px] font-bold uppercase bg-muted px-1 py-0.5 text-muted-foreground border">
+              <div className="mt-1 flex items-center gap-2">
+                <span className="border bg-muted px-1 py-0.5 text-[10px] font-bold uppercase text-muted-foreground">
                   APN: {selectedProperty.apn}
                 </span>
-                <p className="text-xs sm:text-sm text-secondary-foreground font-semibold truncate">
-                  Owner: {selectedProperty.owner.name}
+                <p className="truncate text-xs font-semibold text-secondary-foreground sm:text-sm">
+                  County: {selectedProperty.county}
                 </p>
               </div>
             </div>
-            <div className="text-right flex-shrink-0 hidden xs:block">
-              <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider mb-0.5">
-                Assessed Value
+            <div className="hidden flex-shrink-0 text-right sm:block">
+              <p className="mb-0.5 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Directory Estimate
               </p>
-              <p className="text-base sm:text-lg font-bold text-primary">
+              <p className="text-base font-bold text-primary sm:text-lg">
                 {new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
                   maximumFractionDigits: 0,
                 }).format(selectedProperty.value)}
               </p>
-              <p className="text-[10px] font-bold text-primary underline mt-1 uppercase tracking-wider">
-                View Full Record →
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-primary underline">
+                View Full Record
               </p>
             </div>
           </div>
         </div>
       )}
 
-      {/* Properties grid */}
       <section
         id="properties"
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12"
+        className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8"
       >
-        <div className="flex items-center justify-between border-b-2 border-primary pb-4 mb-6 sm:mb-8">
+        <div className="mb-6 flex items-center justify-between border-b-2 border-primary pb-4 sm:mb-8">
           <div>
-            <h2 className="text-xl sm:text-3xl font-display font-bold uppercase tracking-wide text-foreground">
-              Property Registry Database
+            <h2 className="font-display text-xl font-bold uppercase tracking-wide text-foreground sm:text-3xl">
+              Property directory records
             </h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Featured Michigan residential entry prepared in a neutral
+              public-directory format.
+            </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {filteredProperties.map((property) => (
             <PropertyCard
               key={property.id}
               property={property}
-              onClick={handlePropertyClick}
+              onClick={(record) => {
+                setSelectedProperty(record);
+                handlePropertyClick(record);
+              }}
               isSelected={selectedProperty?.id === property.id}
             />
           ))}
         </div>
 
         {filteredProperties.length === 0 && (
-          <div className="text-center py-16">
-            <Search className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
+          <div className="py-16 text-center">
+            <Search className="mx-auto mb-4 h-12 w-12 text-muted-foreground/30" />
             <p className="text-lg text-muted-foreground">
               No properties match your search
             </p>
-            <p className="text-sm text-muted-foreground/70 mt-1">
-              Try a different address or owner name
+            <p className="mt-1 text-sm text-muted-foreground/70">
+              Try a different address, parcel number, or city name
             </p>
           </div>
         )}
       </section>
 
-      {/* Official Footer */}
-      <footer className="border-t-4 border-primary bg-card py-6 sm:py-8 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center gap-2">
-          <Shield className="w-8 h-8 text-muted-foreground/30" />
-          <p className="text-xs sm:text-sm font-bold text-muted-foreground uppercase tracking-widest">
-            © 2026 Office of the Assessor-County Clerk-Recorder.
+      <footer className="mt-12 border-t-4 border-primary bg-card py-6 sm:py-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-4 text-center sm:px-6 lg:px-8">
+          <Shield className="h-8 w-8 text-muted-foreground/30" />
+          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground sm:text-sm">
+            Copyright 2026 Michigan State Property Directory
           </p>
-          <p className="text-[10px] sm:text-xs font-medium text-muted-foreground/70 max-w-2xl mt-2">
-            The data presented on this portal is obtained from recorded public
-            documents. For official legal verification, certified copies of
-            documentation must be requested directly from the county office.
+          <p className="mt-2 max-w-2xl text-[10px] font-medium text-muted-foreground/70 sm:text-xs">
+            Directory formatting is provided for informational browsing only.
+            Users should verify legal title, tax standing, and ownership
+            history through the appropriate county and municipal offices.
           </p>
         </div>
       </footer>

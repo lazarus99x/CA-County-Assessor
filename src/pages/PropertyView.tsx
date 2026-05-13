@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { initialProperties } from "@/data/properties";
 import {
@@ -16,18 +16,16 @@ import {
   ChevronRight,
   X,
   Camera,
+  ShieldCheck,
 } from "lucide-react";
 
 const PropertyView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const property = initialProperties.find((p) => p.id === id);
-
-  // All hooks MUST be called before any conditional returns
+  const property = initialProperties.find((record) => record.id === id);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIdx, setLightboxIdx] = useState(0);
 
-  // Build gallery array (safe even if property is undefined)
   const images =
     property?.gallery && property.gallery.length > 0
       ? property.gallery
@@ -35,29 +33,31 @@ const PropertyView = () => {
         ? [property.image]
         : [];
 
-  const openLightbox = (idx: number) => {
-    setLightboxIdx(idx);
+  const openLightbox = (index: number) => {
+    setLightboxIdx(index);
     setLightboxOpen(true);
   };
+
   const closeLightbox = () => setLightboxOpen(false);
   const prevPhoto = () =>
-    setLightboxIdx((i) => (i - 1 + images.length) % images.length);
-  const nextPhoto = () => setLightboxIdx((i) => (i + 1) % images.length);
+    setLightboxIdx((index) => (index - 1 + images.length) % images.length);
+  const nextPhoto = () =>
+    setLightboxIdx((index) => (index + 1) % images.length);
 
   if (!property) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center">
-        <h1 className="text-3xl font-display font-bold text-foreground mb-4">
+      <div className="flex min-h-screen flex-col items-center justify-center bg-background">
+        <h1 className="mb-4 font-display text-3xl font-bold text-foreground">
           Property Not Found
         </h1>
-        <p className="text-muted-foreground mb-8">
-          The requested property record could not be found in the database.
+        <p className="mb-8 text-muted-foreground">
+          The requested property record could not be found in the directory.
         </p>
         <button
           onClick={() => navigate("/")}
-          className="px-6 py-2 bg-primary text-primary-foreground font-medium flex items-center gap-2"
+          className="flex items-center gap-2 bg-primary px-6 py-2 font-medium text-primary-foreground"
         >
-          <ArrowLeft className="w-4 h-4" /> Return to Database
+          <ArrowLeft className="h-4 w-4" /> Return to Directory
         </button>
       </div>
     );
@@ -70,113 +70,112 @@ const PropertyView = () => {
       maximumFractionDigits: 0,
     }).format(value);
 
-  // We show: 1 large + 3 small thumbnails + overflow badge
   const mainImage = images[0];
   const thumbs = images.slice(1, 4);
-  const extraCount = images.length - 4; // images beyond the 4 shown
+  const extraCount = images.length - 4;
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Official Header */}
-      <header className="bg-primary text-primary-foreground border-b-4 border-[#C8102E]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <header className="border-b border-primary/20 bg-primary text-primary-foreground">
+        <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:h-20 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <Landmark className="w-8 h-8 sm:w-10 sm:h-10" />
+            <Landmark className="h-8 w-8 sm:h-10 sm:w-10" />
             <div>
-              <h1 className="font-display text-lg sm:text-2xl font-bold uppercase tracking-wider">
-                County Assessor Portal
+              <h1 className="font-display text-lg font-bold uppercase tracking-wider sm:text-2xl">
+                Michigan State Property Directory
               </h1>
-              <p className="text-xs sm:text-sm text-primary-foreground/80 font-medium">
-                Official Property Records Database
+              <p className="text-xs font-medium text-primary-foreground/80 sm:text-sm">
+                Independent Residential Record View
               </p>
             </div>
           </div>
           <button
             onClick={() => navigate("/")}
-            className="hidden sm:flex items-center gap-2 hover:underline text-sm font-medium"
+            className="hidden items-center gap-2 text-sm font-medium hover:underline sm:flex"
           >
-            <ArrowLeft className="w-4 h-4" /> New Search
+            <ArrowLeft className="h-4 w-4" /> New Search
           </button>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        {/* Title Bar */}
-        <div className="border-b-2 border-primary mb-8 pb-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div className="mb-8 flex flex-col justify-between gap-4 border-b-2 border-primary pb-4 sm:flex-row sm:items-end">
           <div>
-            <div className="flex items-center gap-2 mb-2 text-muted-foreground">
-              <span className="uppercase text-xs font-bold tracking-widest bg-muted px-2 py-1">
-                Record ID: #{property.id.padStart(5, "0")}
+            <div className="mb-2 flex items-center gap-2 text-muted-foreground">
+              <span className="bg-muted px-2 py-1 text-xs font-bold uppercase tracking-widest">
+                Record ID: {property.id}
               </span>
               <span className="text-xs font-medium">
-                Last Updated: {property.lastSaleDate || "2023-11-04"}
+                Last Updated: {property.lastSaleDate}
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground">
-              Parcel Data Report
+            <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">
+              Residential property file
             </h2>
           </div>
           <div className="text-left sm:text-right">
-            <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">
+            <p className="mb-1 text-xs font-bold uppercase tracking-wider text-muted-foreground">
               Status
             </p>
-            <p className="text-sm font-bold text-success flex items-center sm:justify-end gap-1">
-              <FileText className="w-4 h-4" /> ACTIVE RECORD
+            <p className="flex items-center gap-1 text-sm font-bold text-success sm:justify-end">
+              <FileText className="h-4 w-4" /> {property.status.toUpperCase()}
             </p>
           </div>
         </div>
 
-        {/* ── PHOTO GALLERY ── */}
+        <div className="mb-8 border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+          <div className="flex items-start gap-3">
+            <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0" />
+            <p>{property.recordDisclaimer}</p>
+          </div>
+        </div>
+
         <section className="mb-10">
-          <div className="flex items-center gap-2 mb-3">
-            <Camera className="w-4 h-4 text-primary" />
+          <div className="mb-3 flex items-center gap-2">
+            <Camera className="h-4 w-4 text-primary" />
             <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-              Property Photos — {images.length} images on file
+              Property Photos - {images.length} images on file
             </span>
           </div>
 
-          <div className="grid grid-cols-4 grid-rows-2 gap-2 h-64 sm:h-96">
-            {/* Main large image */}
+          <div className="grid h-64 grid-cols-4 grid-rows-2 gap-2 sm:h-96">
             <div
-              className="col-span-4 sm:col-span-2 row-span-2 relative overflow-hidden cursor-pointer group bg-muted"
+              className="group relative col-span-4 row-span-2 cursor-pointer overflow-hidden bg-muted sm:col-span-2"
               onClick={() => openLightbox(0)}
             >
               <img
                 src={mainImage}
-                alt="Front View"
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                alt="Front view"
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
-              <div className="absolute bottom-2 left-2 bg-black/70 text-white text-[10px] uppercase font-mono px-2 py-0.5">
+              <div className="absolute bottom-2 left-2 bg-black/70 px-2 py-0.5 text-[10px] uppercase text-white">
                 Front View
               </div>
             </div>
 
-            {/* 3 small thumbnails */}
-            {thumbs.map((src, idx) => (
+            {thumbs.map((src, index) => (
               <div
-                key={idx}
-                className="col-span-2 sm:col-span-1 relative overflow-hidden cursor-pointer group bg-muted"
-                onClick={() => openLightbox(idx + 1)}
+                key={src}
+                className="group relative col-span-2 cursor-pointer overflow-hidden bg-muted sm:col-span-1"
+                onClick={() => openLightbox(index + 1)}
               >
                 <img
                   src={src}
-                  alt={`View ${idx + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  alt={`View ${index + 1}`}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] font-mono px-1.5 py-0.5 uppercase">
-                  View {idx + 1}
+                <div className="absolute bottom-1 left-1 bg-black/60 px-1.5 py-0.5 text-[9px] uppercase text-white">
+                  View {index + 1}
                 </div>
-
-                {/* Overflow badge on last visible thumb */}
-                {idx === thumbs.length - 1 && extraCount > 0 && (
+                {index === thumbs.length - 1 && extraCount > 0 && (
                   <div
-                    className="absolute inset-0 bg-black/55 flex items-center justify-center cursor-pointer"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      openLightbox(idx + 1);
+                    className="absolute inset-0 flex items-center justify-center bg-black/55"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      openLightbox(index + 1);
                     }}
                   >
-                    <span className="text-white text-2xl font-bold">
+                    <span className="text-2xl font-bold text-white">
                       +{extraCount}
                     </span>
                   </div>
@@ -184,64 +183,63 @@ const PropertyView = () => {
               </div>
             ))}
 
-            {/* Filler if fewer than 3 thumbs */}
             {thumbs.length === 0 && (
-              <div className="col-span-2 sm:col-span-2 row-span-2 bg-muted flex items-center justify-center text-muted-foreground text-xs">
+              <div className="col-span-2 row-span-2 flex items-center justify-center bg-muted text-xs text-muted-foreground sm:col-span-2">
                 No additional photos
               </div>
             )}
           </div>
         </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Data Column */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Property Location Block */}
-            <section className="bg-card border shadow-sm">
-              <div className="bg-secondary/50 border-b px-6 py-4 flex items-center gap-3">
-                <MapPin className="w-5 h-5 text-primary" />
-                <h3 className="font-display text-lg font-bold text-foreground uppercase tracking-wide">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          <div className="space-y-8 lg:col-span-2">
+            <section className="border bg-card shadow-sm">
+              <div className="flex items-center gap-3 border-b bg-secondary/50 px-6 py-4">
+                <MapPin className="h-5 w-5 text-primary" />
+                <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
                   Property Location
                 </h3>
               </div>
               <div className="p-6">
-                <p className="text-2xl font-bold text-foreground mb-1">
+                <p className="mb-1 text-2xl font-bold text-foreground">
                   {property.address}
                 </p>
                 <p className="text-lg text-muted-foreground">
                   {property.city}, {property.state} {property.zip}
                 </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {property.county}
+                </p>
               </div>
             </section>
 
-            {/* Assessment & Valuation */}
-            <section className="bg-card border shadow-sm">
-              <div className="bg-secondary/50 border-b px-6 py-4 flex items-center gap-3">
-                <Landmark className="w-5 h-5 text-primary" />
-                <h3 className="font-display text-lg font-bold text-foreground uppercase tracking-wide">
-                  Assessment Information
+            <section className="border bg-card shadow-sm">
+              <div className="flex items-center gap-3 border-b bg-secondary/50 px-6 py-4">
+                <Landmark className="h-5 w-5 text-primary" />
+                <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
+                  Valuation and parcel information
                 </h3>
               </div>
-              <div className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2">
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">
-                    Assessed Value
+                  <p className="mb-1 text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                    Directory Estimate
                   </p>
                   <p className="text-3xl font-bold text-primary">
                     {formatPrice(property.value)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider mb-1">
+                  <p className="mb-1 text-xs font-bold uppercase tracking-wider text-muted-foreground">
                     Last Sale Date
                   </p>
                   <p className="text-lg font-medium text-foreground">
                     {property.lastSaleDate}
                   </p>
                 </div>
-                <div className="col-span-1 sm:col-span-2 border-t pt-4 grid grid-cols-2 gap-4">
+                <div className="col-span-1 grid grid-cols-2 gap-4 border-t pt-4 sm:col-span-2">
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase font-bold mb-1">
+                    <p className="mb-1 text-xs font-bold uppercase text-muted-foreground">
                       APN (Parcel Number)
                     </p>
                     <p className="text-sm font-mono text-foreground">
@@ -249,7 +247,7 @@ const PropertyView = () => {
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase font-bold mb-1">
+                    <p className="mb-1 text-xs font-bold uppercase text-muted-foreground">
                       Zoning Code
                     </p>
                     <p className="text-sm font-mono text-foreground">
@@ -260,20 +258,19 @@ const PropertyView = () => {
               </div>
             </section>
 
-            {/* Structural Details */}
-            <section className="bg-card border shadow-sm">
-              <div className="bg-secondary/50 border-b px-6 py-4 flex items-center gap-3">
-                <Building2 className="w-5 h-5 text-primary" />
-                <h3 className="font-display text-lg font-bold text-foreground uppercase tracking-wide">
-                  Structural Characteristics
+            <section className="border bg-card shadow-sm">
+              <div className="flex items-center gap-3 border-b bg-secondary/50 px-6 py-4">
+                <Building2 className="h-5 w-5 text-primary" />
+                <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
+                  Structural characteristics
                 </h3>
               </div>
               <div className="p-6">
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-6 gap-x-4">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-4">
                   <div>
-                    <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                      <Bed className="w-4 h-4" />{" "}
-                      <span className="text-xs uppercase font-bold">
+                    <div className="mb-1 flex items-center gap-2 text-muted-foreground">
+                      <Bed className="h-4 w-4" />
+                      <span className="text-xs font-bold uppercase">
                         Bedrooms
                       </span>
                     </div>
@@ -282,9 +279,9 @@ const PropertyView = () => {
                     </p>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                      <Bath className="w-4 h-4" />{" "}
-                      <span className="text-xs uppercase font-bold">
+                    <div className="mb-1 flex items-center gap-2 text-muted-foreground">
+                      <Bath className="h-4 w-4" />
+                      <span className="text-xs font-bold uppercase">
                         Bathrooms
                       </span>
                     </div>
@@ -293,33 +290,33 @@ const PropertyView = () => {
                     </p>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                      <Maximize className="w-4 h-4" />{" "}
-                      <span className="text-xs uppercase font-bold">
+                    <div className="mb-1 flex items-center gap-2 text-muted-foreground">
+                      <Maximize className="h-4 w-4" />
+                      <span className="text-xs font-bold uppercase">
                         Building Area
                       </span>
                     </div>
                     <p className="text-xl font-bold text-foreground">
                       {property.sqft.toLocaleString()}{" "}
-                      <span className="text-sm font-normal">SqFt</span>
+                      <span className="text-sm font-normal">Sq Ft</span>
                     </p>
                   </div>
                   <div>
-                    <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                      <Maximize className="w-4 h-4 opacity-50" />{" "}
-                      <span className="text-xs uppercase font-bold">
+                    <div className="mb-1 flex items-center gap-2 text-muted-foreground">
+                      <Maximize className="h-4 w-4 opacity-50" />
+                      <span className="text-xs font-bold uppercase">
                         Lot Area
                       </span>
                     </div>
                     <p className="text-xl font-bold text-foreground">
-                      {property.lotSize?.toLocaleString() || "5,000"}{" "}
-                      <span className="text-sm font-normal">SqFt</span>
+                      {property.lotSize.toLocaleString()}{" "}
+                      <span className="text-sm font-normal">Sq Ft</span>
                     </p>
                   </div>
-                  <div className="col-span-2 sm:col-span-4 border-t pt-4">
-                    <div className="flex items-center gap-2 text-muted-foreground mb-1">
-                      <CalendarDays className="w-4 h-4" />{" "}
-                      <span className="text-xs uppercase font-bold">
+                  <div className="col-span-2 border-t pt-4 sm:col-span-4">
+                    <div className="mb-1 flex items-center gap-2 text-muted-foreground">
+                      <CalendarDays className="h-4 w-4" />
+                      <span className="text-xs font-bold uppercase">
                         Year Built
                       </span>
                     </div>
@@ -330,22 +327,67 @@ const PropertyView = () => {
                 </div>
               </div>
             </section>
-          </div>
 
-          {/* Sidebar Column */}
-          <div className="space-y-8">
-            {/* Owner Info */}
-            <section className="bg-card border shadow-sm">
-              <div className="bg-secondary/50 border-b px-4 py-3 flex items-center gap-2">
-                <UserCircle2 className="w-4 h-4 text-primary" />
-                <h3 className="font-display text-sm font-bold text-foreground uppercase tracking-wide">
-                  Recorded Ownership
+            <section className="border bg-card shadow-sm">
+              <div className="flex items-center gap-3 border-b bg-secondary/50 px-6 py-4">
+                <FileText className="h-5 w-5 text-primary" />
+                <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
+                  Property overview
                 </h3>
               </div>
-              <div className="p-4 space-y-4">
+              <div className="space-y-5 p-6">
+                <p className="leading-7 text-foreground/90">
+                  {property.description}
+                </p>
                 <div>
-                  <p className="text-[10px] text-muted-foreground uppercase font-bold mb-0.5">
-                    Primary Owner Name(s)
+                  <p className="mb-3 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                    Key property notes
+                  </p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {property.highlights.map((highlight) => (
+                      <div
+                        key={highlight}
+                        className="border-l-4 border-primary bg-muted/40 px-4 py-3 text-sm text-foreground/90"
+                      >
+                        {highlight}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="border bg-card shadow-sm">
+              <div className="flex items-center gap-3 border-b bg-secondary/50 px-6 py-4">
+                <MapPin className="h-5 w-5 text-primary" />
+                <h3 className="font-display text-lg font-bold uppercase tracking-wide text-foreground">
+                  Map location
+                </h3>
+              </div>
+              <div className="p-4">
+                <iframe
+                  src={property.mapEmbedUrl}
+                  title="Property location"
+                  className="h-[340px] w-full border"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </section>
+          </div>
+
+          <div className="space-y-8">
+            <section className="border bg-card shadow-sm">
+              <div className="flex items-center gap-2 border-b bg-secondary/50 px-4 py-3">
+                <UserCircle2 className="h-4 w-4 text-primary" />
+                <h3 className="font-display text-sm font-bold uppercase tracking-wide text-foreground">
+                  Public preview details
+                </h3>
+              </div>
+              <div className="space-y-4 p-4">
+                <div>
+                  <p className="mb-0.5 text-[10px] font-bold uppercase text-muted-foreground">
+                    Ownership display
                   </p>
                   <p className="text-sm font-bold text-foreground">
                     {property.owner.name}
@@ -353,7 +395,7 @@ const PropertyView = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-4 border-t pt-4">
                   <div>
-                    <p className="text-[10px] text-muted-foreground uppercase font-bold mb-0.5">
+                    <p className="mb-0.5 text-[10px] font-bold uppercase text-muted-foreground">
                       Marital Status
                     </p>
                     <p className="text-xs font-medium text-foreground">
@@ -361,7 +403,7 @@ const PropertyView = () => {
                     </p>
                   </div>
                   <div>
-                    <p className="text-[10px] text-muted-foreground uppercase font-bold mb-0.5">
+                    <p className="mb-0.5 text-[10px] font-bold uppercase text-muted-foreground">
                       Occupancy
                     </p>
                     <p className="text-xs font-medium text-foreground">
@@ -369,9 +411,9 @@ const PropertyView = () => {
                     </p>
                   </div>
                 </div>
-                <div className="bg-muted/50 p-3 mt-4 border border-dashed text-xs text-muted-foreground">
-                  <p className="font-bold mb-1 text-foreground">
-                    Contact Information
+                <div className="mt-4 border border-dashed bg-muted/50 p-3 text-xs text-muted-foreground">
+                  <p className="mb-1 font-bold text-foreground">
+                    Contact information
                   </p>
                   <p>Phone: {property.owner.phone}</p>
                   <p>Email: {property.owner.email}</p>
@@ -379,37 +421,34 @@ const PropertyView = () => {
               </div>
             </section>
 
-            <div className="text-xs text-muted-foreground text-center px-4">
-              Data deemed reliable but not guaranteed. For official verification
-              purposes, please contact the county clerk's office directly.
+            <div className="px-4 text-center text-xs text-muted-foreground">
+              Data is presented in a directory format for browsing and design
+              purposes. Verify current title, tax, and permitting data with the
+              appropriate public office before relying on it.
             </div>
           </div>
         </div>
       </main>
 
-      {/* ── LIGHTBOX ── */}
       {lightboxOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95"
           onClick={closeLightbox}
         >
-          {/* Close */}
           <button
             onClick={closeLightbox}
-            className="absolute top-4 right-4 text-white/80 hover:text-white bg-black/50 rounded-full p-2 z-10"
+            className="absolute right-4 top-4 z-10 rounded-full bg-black/50 p-2 text-white/80 hover:text-white"
           >
-            <X className="w-6 h-6" />
+            <X className="h-6 w-6" />
           </button>
 
-          {/* Counter */}
-          <div className="absolute top-4 left-4 text-white/70 text-sm font-mono font-bold bg-black/50 px-3 py-1">
+          <div className="absolute left-4 top-4 bg-black/50 px-3 py-1 font-mono text-sm font-bold text-white/70">
             {lightboxIdx + 1} / {images.length}
           </div>
 
-          {/* Image */}
           <div
-            className="relative max-w-5xl max-h-[80vh] w-full px-14 flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
+            className="relative flex max-h-[80vh] w-full max-w-5xl items-center justify-center px-14"
+            onClick={(event) => event.stopPropagation()}
           >
             <img
               src={images[lightboxIdx]}
@@ -418,44 +457,41 @@ const PropertyView = () => {
             />
           </div>
 
-          {/* Prev */}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               prevPhoto();
             }}
-            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 text-white bg-black/60 hover:bg-black/90 rounded-full p-2 sm:p-3 transition-colors"
+            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/90 sm:left-6 sm:p-3"
           >
-            <ChevronLeft className="w-7 h-7" />
+            <ChevronLeft className="h-7 w-7" />
           </button>
 
-          {/* Next */}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               nextPhoto();
             }}
-            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 text-white bg-black/60 hover:bg-black/90 rounded-full p-2 sm:p-3 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/90 sm:right-6 sm:p-3"
           >
-            <ChevronRight className="w-7 h-7" />
+            <ChevronRight className="h-7 w-7" />
           </button>
 
-          {/* Thumbnail strip */}
           <div
-            className="absolute bottom-4 flex gap-2 overflow-x-auto max-w-full px-4"
-            onClick={(e) => e.stopPropagation()}
+            className="absolute bottom-4 flex max-w-full gap-2 overflow-x-auto px-4"
+            onClick={(event) => event.stopPropagation()}
           >
-            {images.map((img, idx) => (
+            {images.map((image, index) => (
               <button
-                key={idx}
-                onClick={() => setLightboxIdx(idx)}
-                className={`flex-shrink-0 w-14 h-10 sm:w-16 sm:h-12 border-2 overflow-hidden transition-all ${
-                  idx === lightboxIdx
+                key={image}
+                onClick={() => setLightboxIdx(index)}
+                className={`h-10 w-14 flex-shrink-0 overflow-hidden border-2 transition-all sm:h-12 sm:w-16 ${
+                  index === lightboxIdx
                     ? "border-white opacity-100"
                     : "border-white/30 opacity-50 hover:opacity-80"
                 }`}
               >
-                <img src={img} alt="" className="w-full h-full object-cover" />
+                <img src={image} alt="" className="h-full w-full object-cover" />
               </button>
             ))}
           </div>
