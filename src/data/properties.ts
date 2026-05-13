@@ -1,7 +1,50 @@
-const propertyGallery = Array.from(
+const houseImageGallery = Array.from(
   { length: 35 },
   (_, index) => `/houseimagetr/${index + 1}.jpeg`
 );
+
+const galleryRange = (start: number, count: number) =>
+  Array.from({ length: count }, (_, offset) => {
+    const imageNumber = ((start - 1 + offset) % 35) + 1;
+    return `/houseimagetr/${imageNumber}.jpeg`;
+  });
+
+const gallerySets = [
+  [
+    "/bensionhuose/frontview.png",
+    "/bensionhuose/view1.png",
+    "/bensionhuose/view2.png",
+    "/bensionhuose/view3.png",
+  ],
+  [
+    "/houseimages1/frontview.png",
+    "/houseimages1/view1.png",
+    "/houseimages1/view2.png",
+    "/houseimages1/view3.png",
+    "/houseimages1/view4.png",
+  ],
+  [
+    "/houseimages2/frontview.png",
+    "/houseimages2/view1.png",
+    "/houseimages2/view2.png",
+    "/houseimages2/view3.png",
+  ],
+  [
+    "/houseimages3/frontview.png",
+    "/houseimages3/view1.png",
+    "/houseimages3/view2.png",
+    "/houseimages3/view3.png",
+    "/houseimages3/view4.png",
+  ],
+  galleryRange(2, 4),
+  galleryRange(6, 5),
+  galleryRange(11, 4),
+  galleryRange(15, 5),
+  galleryRange(20, 4),
+  galleryRange(24, 5),
+  galleryRange(29, 4),
+  galleryRange(32, 4),
+];
 
 export interface Property {
   id: string;
@@ -37,45 +80,551 @@ export interface Owner {
   occupancy: string;
 }
 
-export const initialProperties: Property[] = [
+interface PropertySeed {
+  address: string;
+  city: string;
+  zip: string;
+  county: string;
+  value: number;
+  bedrooms: number;
+  bathrooms: number;
+  sqft: number;
+  lotSize: number;
+  yearBuilt: number;
+  zoning: string;
+  lastSaleDate: string;
+  ownerName: string;
+  maritalStatus: string;
+  phone: string;
+  email: string;
+  occupancy: string;
+  description: string;
+  highlights: string[];
+  gallery: string[];
+}
+
+const makeMapUrl = (address: string, city: string, zip: string) =>
+  `https://maps.google.com/maps?q=${encodeURIComponent(
+    `${address}, ${city}, MI ${zip}`
+  )}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+
+const makeApn = (index: number) =>
+  `83-${String(100 + index).padStart(3, "0")}-${String(40 + index).padStart(
+    2,
+    "0"
+  )}-${String(700 + index).padStart(4, "0")}`;
+
+const buildProperty = (seed: PropertySeed, index: number): Property => ({
+  id: `MSPD-${seed.zip}-${String(index + 1).padStart(3, "0")}`,
+  address: seed.address,
+  city: seed.city,
+  state: "MI",
+  zip: seed.zip,
+  county: seed.county,
+  value: seed.value,
+  bedrooms: seed.bedrooms,
+  bathrooms: seed.bathrooms,
+  sqft: seed.sqft,
+  lotSize: seed.lotSize,
+  yearBuilt: seed.yearBuilt,
+  apn: makeApn(index + 1),
+  zoning: seed.zoning,
+  lastSaleDate: seed.lastSaleDate,
+  image: seed.gallery[0],
+  gallery: seed.gallery,
+  owner: {
+    name: seed.ownerName,
+    maritalStatus: seed.maritalStatus,
+    phone: seed.phone,
+    email: seed.email,
+    occupancy: seed.occupancy,
+  },
+  status: "Active directory record",
+  description: seed.description,
+  highlights: seed.highlights,
+  mapEmbedUrl: makeMapUrl(seed.address, seed.city, seed.zip),
+  recordDisclaimer:
+    "This independent directory page is for informational reference only and should not be treated as an official state, county, or township record.",
+});
+
+const propertySeeds: PropertySeed[] = [
   {
-    id: "MSPD-48111-001",
     address: "42183 Kouza Ct",
     city: "Van Buren Township",
-    state: "MI",
     zip: "48111",
     county: "Wayne County",
-    value: 1649000,
+    value: 3800000,
     bedrooms: 5,
     bathrooms: 8.5,
     sqft: 9877,
     lotSize: 30492,
     yearBuilt: 2007,
-    apn: "83-064-99-0012-701",
     zoning: "R-1 Residential Estate",
     lastSaleDate: "2025-11-18",
-    image: propertyGallery[0],
-    gallery: propertyGallery,
-    owner: {
-      name: "Ownership details withheld from public preview",
-      maritalStatus: "Not shown",
-      phone: "Not displayed",
-      email: "Not displayed",
-      occupancy: "Residential use",
-    },
-    status: "Active directory record",
+    ownerName: "Owner record on file",
+    maritalStatus: "Noted on internal file",
+    phone: "Available by request",
+    email: "Available by request",
+    occupancy: "Waterfront residential estate",
     description:
-      "Positioned along all-sports Belleville Lake on a quiet cul-de-sac, this substantial waterfront residence presents a well-appointed residential footprint with expansive interior volume, large-scale entertaining areas, and broad lake-facing exposures. The property is suited to buyers or researchers reviewing premium shoreline housing stock in Van Buren Township, with a layout that supports private living quarters, guest accommodation, and recreational use.",
+      "Positioned along all-sports Belleville Lake on a quiet cul-de-sac, this expansive waterfront residence presents nearly ten thousand square feet of finished living area with broad entertaining zones, private bedroom suites, and substantial lake-facing window lines. The home reads as a premium upper-tier residential asset within Van Buren Township and supports year-round occupancy, guest hosting, and large-format family use.",
     highlights: [
-      "Waterfront setting on Belleville Lake with cul-de-sac placement",
-      "Approximate gross living area of 9,877 square feet",
-      "Five-bedroom layout with eight full and one half bathrooms",
-      "Large-format rooms suited for gathering, hosting, and multigenerational use",
-      "Wayne County location with access to regional commuter corridors and recreation",
+      "Belleville Lake waterfront placement with cul-de-sac approach",
+      "Approximate 9,877 square feet of gross living area",
+      "Five bedrooms with eight full baths and one half bath",
+      "Large reception spaces suited for formal and casual gatherings",
+      "Estate-style footprint with strong recreational and hosting appeal",
     ],
-    mapEmbedUrl:
-      "https://maps.google.com/maps?q=42183%20Kouza%20Ct%2C%20Van%20Buren%20Township%2C%20MI%2048111&t=&z=16&ie=UTF8&iwloc=&output=embed",
-    recordDisclaimer:
-      "This independent directory page is for informational reference only and should not be treated as an official state, county, or township record.",
+    gallery: houseImageGallery,
+  },
+  {
+    address: "1874 Bishop Lake Rd",
+    city: "Brighton",
+    zip: "48114",
+    county: "Livingston County",
+    value: 1245000,
+    bedrooms: 4,
+    bathrooms: 4.5,
+    sqft: 4680,
+    lotSize: 21780,
+    yearBuilt: 2015,
+    zoning: "R-A Residential",
+    lastSaleDate: "2024-08-09",
+    ownerName: "Harrison Cole",
+    maritalStatus: "Married",
+    phone: "+1 (248) 555-0188",
+    email: "harrison.cole@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "Well-kept lake-area residence with contemporary finishes, a broad rear deck, and a practical plan designed for family living and entertaining.",
+    highlights: [
+      "Near recreation corridors and lake access points",
+      "Updated kitchen and open gathering areas",
+      "Oversized attached garage and generous yard depth",
+    ],
+    gallery: gallerySets[0],
+  },
+  {
+    address: "5092 Windcrest Dr",
+    city: "Troy",
+    zip: "48098",
+    county: "Oakland County",
+    value: 985000,
+    bedrooms: 5,
+    bathrooms: 4,
+    sqft: 4210,
+    lotSize: 15440,
+    yearBuilt: 2003,
+    zoning: "R-1 Single Family",
+    lastSaleDate: "2023-10-21",
+    ownerName: "Evelyn Mercer",
+    maritalStatus: "Single",
+    phone: "+1 (248) 555-0123",
+    email: "evelyn.mercer@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "Substantial suburban home with a formal frontage, flexible interior rooms, and a location convenient to employment centers, schools, and shopping districts.",
+    highlights: [
+      "Large primary suite and finished lower level",
+      "Mature landscaping and fenced rear yard",
+      "Strong utility for multigenerational use",
+    ],
+    gallery: gallerySets[1],
+  },
+  {
+    address: "7621 Hidden Brook Ln",
+    city: "Novi",
+    zip: "48374",
+    county: "Oakland County",
+    value: 1090000,
+    bedrooms: 4,
+    bathrooms: 4.5,
+    sqft: 4495,
+    lotSize: 16900,
+    yearBuilt: 2018,
+    zoning: "R-1 Single Family",
+    lastSaleDate: "2025-02-12",
+    ownerName: "Mason Hartwell",
+    maritalStatus: "Married",
+    phone: "+1 (248) 555-0151",
+    email: "mason.hartwell@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "Modern detached residence with clean interior lines, expansive kitchen-centered living space, and well-scaled bedroom suites.",
+    highlights: [
+      "Recent construction with updated mechanical systems",
+      "Flexible office and guest room options",
+      "Convenient access to regional retail corridors",
+    ],
+    gallery: gallerySets[2],
+  },
+  {
+    address: "3148 Pine Hollow Trl",
+    city: "Ann Arbor",
+    zip: "48105",
+    county: "Washtenaw County",
+    value: 1435000,
+    bedrooms: 5,
+    bathrooms: 4.5,
+    sqft: 5120,
+    lotSize: 24800,
+    yearBuilt: 2012,
+    zoning: "R-2 Residential",
+    lastSaleDate: "2024-06-14",
+    ownerName: "Lena Bradford",
+    maritalStatus: "Married",
+    phone: "+1 (734) 555-0168",
+    email: "lena.bradford@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "Executive-scale Ann Arbor property with wooded edges, refined interior detailing, and multiple spaces suitable for study, work, and hosting.",
+    highlights: [
+      "Large kitchen, dining, and family room flow",
+      "Private site feel with established tree cover",
+      "High-demand Washtenaw County location",
+    ],
+    gallery: gallerySets[3],
+  },
+  {
+    address: "2266 Shoreline Pointe",
+    city: "Grand Blanc",
+    zip: "48439",
+    county: "Genesee County",
+    value: 759000,
+    bedrooms: 4,
+    bathrooms: 3.5,
+    sqft: 3625,
+    lotSize: 18950,
+    yearBuilt: 2010,
+    zoning: "R-1 Single Family",
+    lastSaleDate: "2024-09-30",
+    ownerName: "Camden Brooks",
+    maritalStatus: "Married",
+    phone: "+1 (810) 555-0177",
+    email: "camden.brooks@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "Well-maintained suburban listing with a balanced floor plan, updated surfaces, and a neighborhood setting that supports long-term owner occupancy.",
+    highlights: [
+      "Three-car garage and open backyard area",
+      "Finished bonus space above grade",
+      "Functional bedroom separation and storage",
+    ],
+    gallery: gallerySets[4],
+  },
+  {
+    address: "9414 Bay Harbor Ct",
+    city: "Shelby Township",
+    zip: "48316",
+    county: "Macomb County",
+    value: 882000,
+    bedrooms: 4,
+    bathrooms: 4,
+    sqft: 3980,
+    lotSize: 16220,
+    yearBuilt: 2014,
+    zoning: "R-1 Single Family",
+    lastSaleDate: "2023-07-19",
+    ownerName: "Nadia Sterling",
+    maritalStatus: "Single",
+    phone: "+1 (586) 555-0189",
+    email: "nadia.sterling@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "Macomb County brick-front home with strong curb appeal, open common rooms, and practical access to major commuter routes.",
+    highlights: [
+      "Recent interior updates and clean finishes",
+      "Large kitchen island and breakfast space",
+      "Private primary suite wing",
+    ],
+    gallery: gallerySets[5],
+  },
+  {
+    address: "1187 Terrace View Dr",
+    city: "Rochester Hills",
+    zip: "48306",
+    county: "Oakland County",
+    value: 1195000,
+    bedrooms: 5,
+    bathrooms: 4.5,
+    sqft: 4950,
+    lotSize: 23500,
+    yearBuilt: 2016,
+    zoning: "R-1 Single Family",
+    lastSaleDate: "2025-01-06",
+    ownerName: "Jonah Whitaker",
+    maritalStatus: "Married",
+    phone: "+1 (248) 555-0197",
+    email: "jonah.whitaker@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "A larger-format residential offering with a carefully finished interior, landscaped grounds, and strong utility for entertaining or long-term occupancy.",
+    highlights: [
+      "Extended outdoor patio and yard depth",
+      "Formal office plus multiple gathering rooms",
+      "Premium Oakland County placement",
+    ],
+    gallery: gallerySets[6],
+  },
+  {
+    address: "3374 Harbor Ridge Rd",
+    city: "Traverse City",
+    zip: "49686",
+    county: "Grand Traverse County",
+    value: 1360000,
+    bedrooms: 4,
+    bathrooms: 4,
+    sqft: 4385,
+    lotSize: 28400,
+    yearBuilt: 2009,
+    zoning: "R-1 Residential",
+    lastSaleDate: "2024-05-22",
+    ownerName: "Olivia Kent",
+    maritalStatus: "Married",
+    phone: "+1 (231) 555-0145",
+    email: "olivia.kent@directorymail.com",
+    occupancy: "Seasonal and primary use",
+    description:
+      "Northern Michigan home with a resort-area profile, broad window walls, and a plan that supports both private retreat use and guest accommodation.",
+    highlights: [
+      "Strong seasonal and year-round appeal",
+      "Generous site coverage and garage capacity",
+      "Close to recreation and waterfront amenities",
+    ],
+    gallery: gallerySets[7],
+  },
+  {
+    address: "6425 Silver Maple Dr",
+    city: "Okemos",
+    zip: "48864",
+    county: "Ingham County",
+    value: 715000,
+    bedrooms: 4,
+    bathrooms: 3.5,
+    sqft: 3410,
+    lotSize: 14850,
+    yearBuilt: 2011,
+    zoning: "R-1 Single Family",
+    lastSaleDate: "2023-11-03",
+    ownerName: "Peter Lawson",
+    maritalStatus: "Married",
+    phone: "+1 (517) 555-0134",
+    email: "peter.lawson@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "Comfortable mid-Michigan home with balanced proportions, strong room count, and a clean neighborhood setting near schools and commercial services.",
+    highlights: [
+      "Functional family layout with four bedrooms",
+      "Finished lower level and yard space",
+      "Convenient access to East Lansing corridors",
+    ],
+    gallery: gallerySets[8],
+  },
+  {
+    address: "2181 Meadowbrook Run",
+    city: "Northville",
+    zip: "48168",
+    county: "Wayne County",
+    value: 1265000,
+    bedrooms: 5,
+    bathrooms: 5,
+    sqft: 5075,
+    lotSize: 20110,
+    yearBuilt: 2017,
+    zoning: "R-1 Residential",
+    lastSaleDate: "2025-03-08",
+    ownerName: "Sophie Bennett",
+    maritalStatus: "Married",
+    phone: "+1 (248) 555-0109",
+    email: "sophie.bennett@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "Large Northville property with a formal exterior treatment, modernized finishes, and strong buyer appeal for executive-style occupancy.",
+    highlights: [
+      "Double-height foyer and large common spaces",
+      "Suite-style bedrooms and strong storage count",
+      "Located within a high-demand suburban market",
+    ],
+    gallery: gallerySets[9],
+  },
+  {
+    address: "4720 Forest Glen Ave",
+    city: "East Grand Rapids",
+    zip: "49506",
+    county: "Kent County",
+    value: 948000,
+    bedrooms: 4,
+    bathrooms: 3.5,
+    sqft: 3875,
+    lotSize: 13500,
+    yearBuilt: 2006,
+    zoning: "R-1 Residential",
+    lastSaleDate: "2024-04-11",
+    ownerName: "Noah Landry",
+    maritalStatus: "Single",
+    phone: "+1 (616) 555-0163",
+    email: "noah.landry@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "An established East Grand Rapids address with solid curb presence, refined trim work, and practical proximity to core neighborhood amenities.",
+    highlights: [
+      "Walkable residential setting",
+      "Strong finish quality and natural light",
+      "Finished lower level for flexible use",
+    ],
+    gallery: gallerySets[10],
+  },
+  {
+    address: "1298 Waterstone Dr",
+    city: "Holland",
+    zip: "49424",
+    county: "Ottawa County",
+    value: 834000,
+    bedrooms: 4,
+    bathrooms: 3.5,
+    sqft: 3560,
+    lotSize: 17600,
+    yearBuilt: 2013,
+    zoning: "R-1 Residential",
+    lastSaleDate: "2023-09-26",
+    ownerName: "Claire Dawson",
+    maritalStatus: "Married",
+    phone: "+1 (616) 555-0174",
+    email: "claire.dawson@directorymail.com",
+    occupancy: "Primary residence",
+    description:
+      "Well-rounded Holland residential listing with a durable exterior, comfortable gathering areas, and a site that supports outdoor living.",
+    highlights: [
+      "Large rear patio and finished basement areas",
+      "Good balance of private and shared rooms",
+      "Strong neighborhood consistency",
+    ],
+    gallery: gallerySets[11],
   },
 ];
+
+const additionalSeeds: PropertySeed[] = [
+  ["8841 Harbor Oaks Dr", "Saline", "48176", "Washtenaw County", 689000, 4, 3.5, 3250, 16200, 2008],
+  ["5512 Walnut Creek Blvd", "Canton", "48187", "Wayne County", 724000, 4, 3.5, 3385, 14100, 2012],
+  ["4067 Autumn Ridge Ct", "Farmington Hills", "48331", "Oakland County", 812000, 5, 4, 4020, 16750, 2005],
+  ["2450 Crystal Bay Dr", "West Bloomfield", "48323", "Oakland County", 1189000, 5, 4.5, 4740, 20100, 2014],
+  ["9634 Scenic Pine Way", "Grand Rapids", "49525", "Kent County", 665000, 4, 3, 3095, 13200, 2011],
+  ["1718 Prairie View Ln", "Kalamazoo", "49009", "Kalamazoo County", 548000, 4, 3, 2870, 12480, 2007],
+  ["3921 River Bend Trl", "Midland", "48642", "Midland County", 592000, 4, 3.5, 3120, 15220, 2009],
+  ["7183 Hidden Valley Pass", "Clarkston", "48348", "Oakland County", 875000, 4, 4, 3890, 18840, 2016],
+  ["5309 Aspen Grove Ct", "Milford", "48381", "Oakland County", 732000, 4, 3.5, 3340, 17450, 2010],
+  ["2614 Stoneleigh Dr", "Grosse Pointe Farms", "48236", "Wayne County", 1385000, 5, 4.5, 4860, 14500, 2004],
+  ["6498 Orchard Crossing", "Hudsonville", "49426", "Ottawa County", 615000, 4, 3, 3010, 14980, 2015],
+  ["3185 Blue Heron Dr", "Portage", "49024", "Kalamazoo County", 577000, 4, 3.5, 2940, 13890, 2013],
+  ["9040 White Pine Ct", "Davison", "48423", "Genesee County", 469000, 4, 3, 2710, 14420, 2006],
+  ["2264 Walnut Creek Run", "Lansing", "48917", "Eaton County", 438000, 4, 2.5, 2485, 11800, 2003],
+  ["7811 Boulder Ridge Dr", "Saginaw", "48603", "Saginaw County", 515000, 4, 3.5, 2860, 15100, 2008],
+  ["1547 Peninsula View", "Petoskey", "49770", "Emmet County", 1045000, 4, 4, 3920, 22100, 2017],
+  ["4872 Maple Harbor Ln", "Muskegon", "49441", "Muskegon County", 501000, 4, 3, 2765, 13650, 2012],
+  ["3159 Cedar Bluff Ct", "Auburn Hills", "48326", "Oakland County", 654000, 4, 3.5, 3180, 14050, 2011],
+  ["8260 Lighthouse Way", "Saint Joseph", "49085", "Berrien County", 967000, 4, 4, 3715, 19880, 2018],
+  ["2708 Tallgrass Trl", "Plymouth", "48170", "Wayne County", 789000, 4, 3.5, 3485, 15320, 2014],
+  ["5163 Chestnut Hill Rd", "Wyoming", "49519", "Kent County", 472000, 4, 3, 2640, 12110, 2005],
+  ["1372 Maple Ridge Blvd", "Mason", "48854", "Ingham County", 455000, 4, 2.5, 2425, 12760, 2009],
+  ["6205 Heritage Oaks Dr", "Fenton", "48430", "Genesee County", 693000, 4, 3.5, 3210, 17500, 2016],
+  ["4858 Silver Birch Dr", "Livonia", "48152", "Wayne County", 599000, 4, 3, 2895, 13040, 2010],
+  ["3927 Fox Hollow Trl", "Jackson", "49201", "Jackson County", 418000, 4, 2.5, 2340, 14820, 2004],
+  ["7190 Copper Creek Ln", "Bay City", "48706", "Bay County", 462000, 4, 3, 2515, 14290, 2011],
+  ["1844 Ridgewater Ct", "Royal Oak", "48073", "Oakland County", 742000, 4, 3.5, 3190, 10900, 2017],
+  ["5501 Harbor Club Dr", "Macomb", "48044", "Macomb County", 628000, 4, 3, 2980, 13670, 2015],
+  ["3348 Timber Lake Dr", "Howell", "48843", "Livingston County", 612000, 4, 3.5, 3060, 18550, 2013],
+  ["8042 Summit Park Ave", "Dearborn", "48124", "Wayne County", 574000, 4, 3, 2750, 9800, 2008],
+  ["2675 Laurel Springs Rd", "Bloomfield Hills", "48302", "Oakland County", 1865000, 5, 5.5, 5820, 26400, 2019],
+  ["4289 Evergreen Ridge", "Ada", "49301", "Kent County", 1280000, 5, 4.5, 4970, 24750, 2018],
+  ["1690 Waterford Pines", "Waterford", "48328", "Oakland County", 531000, 4, 3, 2680, 11850, 2007],
+  ["7354 Chapel Hill Dr", "South Lyon", "48178", "Oakland County", 648000, 4, 3.5, 3140, 16740, 2014],
+  ["2157 Meadow Pointe Rd", "Battle Creek", "49015", "Calhoun County", 407000, 4, 2.5, 2280, 13940, 2005],
+  ["6428 Oak Pointe Dr", "Monroe", "48162", "Monroe County", 517000, 4, 3, 2595, 16120, 2012],
+  ["3915 Sand Dune Pass", "Norton Shores", "49444", "Muskegon County", 556000, 4, 3.5, 2835, 14450, 2013],
+  ["8274 Ivy Glen Ct", "Commerce Township", "48390", "Oakland County", 708000, 4, 3.5, 3320, 17210, 2016],
+  ["2998 Briarwood Path", "Ypsilanti", "48197", "Washtenaw County", 464000, 4, 2.5, 2460, 12010, 2006],
+  ["5741 Lake Terrace Dr", "White Lake", "48383", "Oakland County", 691000, 4, 3.5, 3275, 18060, 2015],
+  ["1430 Fieldstone Ct", "Tecumseh", "49286", "Lenawee County", 439000, 4, 2.5, 2395, 15640, 2009],
+  ["6883 Autumn Crest Rd", "Flushing", "48433", "Genesee County", 492000, 4, 3, 2580, 14920, 2011],
+  ["3526 Grand River View", "East Lansing", "48823", "Ingham County", 625000, 4, 3.5, 3025, 13280, 2014],
+  ["9175 Preserve Circle", "Romulus", "48174", "Wayne County", 448000, 4, 2.5, 2330, 11520, 2008],
+  ["4680 Deer Run Dr", "Alpena", "49707", "Alpena County", 394000, 4, 2.5, 2215, 16440, 2002],
+  ["2397 Birch Run Way", "Birch Run", "48415", "Saginaw County", 381000, 4, 2.5, 2160, 17200, 2004],
+  ["7061 River Highlands", "New Hudson", "48165", "Oakland County", 736000, 4, 3.5, 3365, 18610, 2017],
+  ["1189 Meadowbrook Circle", "Greenville", "48838", "Montcalm County", 365000, 4, 2.5, 2050, 14880, 2003],
+  ["6044 Hawthorne Woods", "Sterling Heights", "48312", "Macomb County", 544000, 4, 3, 2675, 12640, 2010],
+  ["2753 Marina Pointe", "Detroit", "48214", "Wayne County", 859000, 4, 3.5, 3520, 9900, 2016],
+];
+
+const fillerSeeds = additionalSeeds.map((seed, index) => {
+  const [
+    address,
+    city,
+    zip,
+    county,
+    value,
+    bedrooms,
+    bathrooms,
+    sqft,
+    lotSize,
+    yearBuilt,
+  ] = seed as [
+    string,
+    string,
+    string,
+    string,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+  ];
+
+  return {
+    address,
+    city,
+    zip,
+    county,
+    value,
+    bedrooms,
+    bathrooms,
+    sqft,
+    lotSize,
+    yearBuilt,
+    zoning: "R-1 Residential",
+    lastSaleDate: `202${(index % 3) + 3}-${String((index % 12) + 1).padStart(
+      2,
+      "0"
+    )}-${String(((index * 2) % 27) + 1).padStart(2, "0")}`,
+    ownerName: [
+      "Alex Monroe",
+      "Jordan Ellis",
+      "Taylor Brooks",
+      "Morgan Hayes",
+      "Parker Reed",
+    ][index % 5],
+    maritalStatus: ["Single", "Married", "Married", "Single", "Married"][
+      index % 5
+    ],
+    phone: `+1 (${["248", "313", "517", "616", "734"][index % 5]}) 555-${String(
+      1200 + index
+    ).padStart(4, "0")}`,
+    email: `${["alex", "jordan", "taylor", "morgan", "parker"][index % 5]}.${
+      ["monroe", "ellis", "brooks", "hayes", "reed"][index % 5]
+    }${index + 1}@directorymail.com`,
+    occupancy: index % 4 === 0 ? "Primary residence" : "Owner occupied",
+    description:
+      "Michigan residential listing with balanced square footage, practical room count, and a presentation that supports directory-style browsing for a portfolio property database.",
+    highlights: [
+      "Well-proportioned floor plan for daily living",
+      "Usable yard space and attached garage storage",
+      "Located within an established Michigan residential market",
+    ],
+    gallery: gallerySets[index % gallerySets.length],
+  } satisfies PropertySeed;
+});
+
+export const initialProperties: Property[] = [...propertySeeds, ...fillerSeeds].map(
+  (seed, index) => buildProperty(seed, index)
+);
