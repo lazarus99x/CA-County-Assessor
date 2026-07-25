@@ -162,8 +162,8 @@ const propertySeeds: PropertySeed[] = [
     lastSaleDate: "2025-11-18",
     ownerName: "Jace Richard",
     maritalStatus: "Owner reported",
-    phone: "+1 (956) 617-3016",
-    email: "todrickchristful4@gmail.com",
+    phone: "+1 (857) 344-0912",
+    email: "jacerichard@gmail.com",
     occupancy: "Waterfront residential estate",
     description:
       "Positioned along all-sports Belleville Lake on a quiet cul-de-sac, this expansive waterfront residence presents nearly ten thousand square feet of finished living area with broad entertaining zones, private bedroom suites, and substantial lake-facing window lines. The home reads as a premium upper-tier residential asset within Van Buren Township and supports year-round occupancy, guest hosting, and large-format family use.",
