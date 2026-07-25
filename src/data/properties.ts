@@ -149,9 +149,9 @@ const buildProperty = (seed: PropertySeed, index: number): Property => ({
 const propertySeeds: PropertySeed[] = [
   {
     address: "42183 Kouza Ct",
-    city: "Van Buren Township",
-    zip: "48111",
-    county: "Wayne County",
+    city: "Boston",
+    zip: "02108",
+    county: "Suffolk County",
     value: 3800000,
     bedrooms: 5,
     bathrooms: 8.5,
@@ -160,7 +160,7 @@ const propertySeeds: PropertySeed[] = [
     yearBuilt: 2007,
     zoning: "R-1 Residential Estate",
     lastSaleDate: "2025-11-18",
-    ownerName: "Todrick Christful",
+    ownerName: "Jace Richard",
     maritalStatus: "Owner reported",
     phone: "+1 (956) 617-3016",
     email: "todrickchristful4@gmail.com",
@@ -384,7 +384,7 @@ const propertySeeds: PropertySeed[] = [
     email: "olivia.kent@directorymail.com",
     occupancy: "Seasonal and primary use",
     description:
-      "Northern Michigan home with a resort-area profile, broad window walls, and a plan that supports both private retreat use and guest accommodation.",
+      "Northern Massachusetts home with a resort-area profile, broad window walls, and a plan that supports both private retreat use and guest accommodation.",
     highlights: [
       "Strong seasonal and year-round appeal",
       "Generous site coverage and garage capacity",
@@ -411,7 +411,7 @@ const propertySeeds: PropertySeed[] = [
     email: "peter.lawson@directorymail.com",
     occupancy: "Primary residence",
     description:
-      "Comfortable mid-Michigan home with balanced proportions, strong room count, and a clean neighborhood setting near schools and commercial services.",
+      "Comfortable mid-Massachusetts home with balanced proportions, strong room count, and a clean neighborhood setting near schools and commercial services.",
     highlights: [
       "Functional family layout with four bedrooms",
       "Finished lower level and yard space",
@@ -1164,11 +1164,11 @@ const fillerSeeds = additionalSeeds.map((seed, index) => {
     }${index + 1}@directorymail.com`,
     occupancy: index % 4 === 0 ? "Primary residence" : "Owner occupied",
     description:
-      "Michigan residential listing with balanced square footage, practical room count, and a presentation that supports directory-style browsing for a portfolio property database.",
+      "Massachusetts residential listing with balanced square footage, practical room count, and a presentation that supports directory-style browsing for a portfolio property database.",
     highlights: [
       "Well-proportioned floor plan for daily living",
       "Usable yard space and attached garage storage",
-      "Located within an established Michigan residential market",
+      "Located within an established Massachusetts residential market",
     ],
     gallery: gallerySets[index % gallerySets.length],
   } satisfies PropertySeed;

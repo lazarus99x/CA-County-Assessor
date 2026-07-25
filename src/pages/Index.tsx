@@ -37,7 +37,7 @@ const Index = () => {
             <Landmark className="h-8 w-8 text-primary-foreground sm:h-10 sm:w-10" />
             <div className="flex flex-col">
               <span className="font-display text-base font-bold uppercase tracking-wider leading-tight text-primary-foreground sm:text-xl">
-                Michigan State Property Directory
+                Massachusetts State Property Directory
               </span>
               <span className="text-[10px] font-medium uppercase tracking-widest text-primary-foreground/80 sm:text-xs">
                 Independent Residential Reference Index
@@ -79,12 +79,12 @@ const Index = () => {
             </span>
           </div>
           <h1 className="mt-5 font-display text-3xl font-bold uppercase tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-            Michigan residential property lookup
+            Massachusetts residential property lookup
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-muted-foreground sm:mt-6 sm:text-lg">
             Search a civic-styled property directory with parcel-style detail
             pages, mapping context, and image records for residential listings
-            in Michigan.
+            in Massachusetts.
           </p>
 
           <form
@@ -134,16 +134,16 @@ const Index = () => {
                 Statewide map context
               </span>
               <span className="text-[10px] font-mono uppercase tracking-tighter text-primary-foreground/70">
-                Michigan overview
+                Massachusetts overview
               </span>
             </div>
             <iframe
-              src="https://maps.google.com/maps?q=Michigan&t=&z=6&ie=UTF8&iwloc=&output=embed"
+              src="https://maps.google.com/maps?q=Massachusetts&t=&z=6&ie=UTF8&iwloc=&output=embed"
               className="w-full flex-1 border-0 grayscale-[25%] contrast-125"
               allowFullScreen={false}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Michigan map overview"
+              title="Massachusetts map overview"
             />
           </div>
 
@@ -162,7 +162,7 @@ const Index = () => {
               allowFullScreen={false}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Featured Michigan property location"
+              title="Featured Massachusetts property location"
             />
           </div>
         </div>
@@ -225,7 +225,7 @@ const Index = () => {
               Property directory records
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Featured Michigan residential entry prepared in a neutral
+              Featured Massachusetts residential entry prepared in a neutral
               public-directory format.
             </p>
           </div>
@@ -262,12 +262,7 @@ const Index = () => {
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-4 text-center sm:px-6 lg:px-8">
           <Shield className="h-8 w-8 text-muted-foreground/30" />
           <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground sm:text-sm">
-            Copyright 2026 Michigan State Property Directory
-          </p>
-          <p className="mt-2 max-w-2xl text-[10px] font-medium text-muted-foreground/70 sm:text-xs">
-            Directory formatting is provided for informational browsing only.
-            Users should verify legal title, tax standing, and ownership history
-            through the appropriate county and municipal offices.
+            Copyright 2026 Massachusetts State Property Directory
           </p>
         </div>
       </footer>

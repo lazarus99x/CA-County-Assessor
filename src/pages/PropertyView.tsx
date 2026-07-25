@@ -82,7 +82,7 @@ const PropertyView = () => {
             <Landmark className="h-8 w-8 sm:h-10 sm:w-10" />
             <div>
               <h1 className="font-display text-lg font-bold uppercase tracking-wider sm:text-2xl">
-                Michigan State Property Directory
+                Massachusetts State Property Directory
               </h1>
               <p className="text-xs font-medium text-primary-foreground/80 sm:text-sm">
                 Independent Residential Record View
@@ -428,12 +428,6 @@ const PropertyView = () => {
                 </div>
               </div>
             </section>
-
-            <div className="px-4 text-center text-xs text-muted-foreground">
-              Data is presented in a directory format for browsing and design
-              purposes. Verify current title, tax, and permitting data with the
-              appropriate public office before relying on it.
-            </div>
           </div>
         </div>
       </main>
